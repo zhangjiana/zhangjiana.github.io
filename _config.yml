@@ -14,7 +14,7 @@ timezone:
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://zhangjiana.github.io
-root: /myBlob
+root: /myBlog
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -79,5 +79,5 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/zhangjiana/myBlob.git
-  branch: master
+  repo: https://github.com/zhangjiana/myBlog.git
+  branch: gh-pages
