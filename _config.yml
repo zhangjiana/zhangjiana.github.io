@@ -5,15 +5,15 @@
 # Site
 title: 张舰
 subtitle:  a brave man!
-description: record my road!
+description: record my way!
 keywords:
 author: Zhang Jian
-language:
+language: zh-CN
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://zhangjianweb.top
+url: https://zhangjiana.github.io
 root: /myBlob
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -73,10 +73,11 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
   repo: https://github.com/zhangjiana/myBlob.git
+  branch: master
