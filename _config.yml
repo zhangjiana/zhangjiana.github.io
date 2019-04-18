@@ -5,10 +5,10 @@
 # Site
 title: 张舰
 subtitle:  a brave man!
-description: record my way!
+description: record my life!
 keywords:
 author: Zhang Jian
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -26,7 +26,8 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render: 'av-core-mini-0.6.4.js'
+
 
 # Writing
 new_post_name: :title.md # File name of new posts

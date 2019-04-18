@@ -1,6 +1,7 @@
 title: hexo 博客网站搭建记录
 date: 2019-04-13 17:04:19
 tags:
+categories: hexo
 ---
 ## hexo 热更新
 
