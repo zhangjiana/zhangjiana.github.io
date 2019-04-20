@@ -86,22 +86,22 @@
 
 
 
-<meta name="description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个的插件，觉得很有效。是结合了之前的```DLLPlugin``` 和 ```DLLReferencePlugin```，实现自动整合，插入html，非常方便。话不多说，开始搞起。1234567891011121.">
+<meta name="description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-w">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack 优化打包时间">
 <meta property="og:url" content="https://zhangjiana.github.io/2019/04/18/webpack-优化打包时间/index.html">
 <meta property="og:site_name" content="张舰">
-<meta property="og:description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个的插件，觉得很有效。是结合了之前的```DLLPlugin``` 和 ```DLLReferencePlugin```，实现自动整合，插入html，非常方便。话不多说，开始搞起。1234567891011121.">
+<meta property="og:description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-w">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-0.png">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-2.png">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-3.png">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-4.png">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-5.png">
-<meta property="og:updated_time" content="2019-04-20T13:47:11.294Z">
+<meta property="og:updated_time" content="2019-04-20T14:43:18.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack 优化打包时间">
-<meta name="twitter:description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个的插件，觉得很有效。是结合了之前的```DLLPlugin``` 和 ```DLLReferencePlugin```，实现自动整合，插入html，非常方便。话不多说，开始搞起。1234567891011121.">
+<meta name="twitter:description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-w">
 <meta name="twitter:image" content="https://zhangjiana.github.io/images/pasted-0.png">
 
 
@@ -112,7 +112,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -157,9 +157,11 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband">
+      <a href="https://github.com/zhangjiana" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+      
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -401,7 +403,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  931
+                  921
                 </span>
               
 
@@ -438,22 +440,23 @@
       
 
       
-        <p>随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个<figure class="highlight plain"><figcaption><span>的插件，觉得很有效。是结合了之前的```DLLPlugin``` 和 ```DLLReferencePlugin```，实现自动整合，插入html，非常方便。话不多说，开始搞起。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1.```autodll-webpack-plugin``` 的作用是什么？</span><br><span class="line"></span><br><span class="line">在webpack打包时，对于第三方依赖的库，比如Vue,vuex,vue-router,react,react-dom等这些不会更改的依赖。webpack 也都会默认的进行打包，然后加到html中。这个是比较浪费的，因为我们只需要对更改的文件进行打包，未更改的依赖直接加到html上就好。 ```autodll-webpack-plugin```的作用就是让依赖代码和常常修改的代码分开打包，每次更改我的代码后，webpack只需要打包我更改的代码，对于第三方依赖，只在第一次打包的时候打包一次，以后都不会再打包，这样来减少打包时长。 其实最早用此方法的是```DLLPlugin``` 和 ```DLLReferencePlugin```。只不过这俩用起来不太自动化，需要一些手动配置。所以我就想一步到位，使用```autodll-webpack-plugin``` 自动整合。</span><br><span class="line"></span><br><span class="line">2.```autodll-webpack-plugin```的使用</span><br><span class="line"></span><br><span class="line">github地址：https://github.com/asfktz/autodll-webpack-plugin</span><br><span class="line"></span><br><span class="line">webpack 4下，执行：</span><br><span class="line">```shell</span><br><span class="line">npm install --save autodll-webpack-plugin</span><br></pre></td></tr></table></figure></p>
+        <p>随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个<code>autodll-webpack-plugin</code>的插件，觉得很有效。是结合了之前的<code>DLLPlugin</code>和<code>DLLReferencePlugin</code>实现自动整合，插入html，非常方便。话不多说，开始搞起。</p>
+<h2 id="autodll-webpack-plugin-的作用是什么？"><a href="#autodll-webpack-plugin-的作用是什么？" class="headerlink" title="autodll-webpack-plugin 的作用是什么？"></a><code>autodll-webpack-plugin</code> 的作用是什么？</h2><p>在webpack打包时，对于第三方依赖的库，比如Vue,vuex,vue-router,react,react-dom等这些不会更改的依赖。webpack 也都会默认的进行打包，然后加到html中。这个是比较浪费的，因为我们只需要对更改的文件进行打包，未更改的依赖直接加到html上就好。 <code>autodll-webpack-plugin</code>的作用就是让依赖代码和常常修改的代码分开打包，每次更改我的代码后，webpack只需要打包我更改的代码，对于第三方依赖，只在第一次打包的时候打包一次，以后都不会再打包，这样来减少打包时长。 其实最早用此方法的是<code>DLLPlugin</code> 和 <code>DLLReferencePlugin</code>。只不过这俩用起来不太自动化，需要一些手动配置。所以我就想一步到位，使用<code>autodll-webpack-plugin</code> 自动整合。</p>
+<h2 id="autodll-webpack-plugin的使用"><a href="#autodll-webpack-plugin的使用" class="headerlink" title="autodll-webpack-plugin的使用"></a><code>autodll-webpack-plugin</code>的使用</h2><p><a href="https://github.com/asfktz/autodll-webpack-plugin" target="_blank" rel="noopener">autodll-webpack-plugin</a></p>
+<p>webpack 4下，执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save autodll-webpack-plugin</span><br></pre></td></tr></table></figure></p>
 <p>webpack 2 / 3下，执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save autodll-webpack-plugin</span><br></pre></td></tr></table></figure></p>
 <p>接着在你的webpack.config.prod.js中引入如下代码：<br>（怎样在react中找到wepback的配置文件，自行搜索）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const AutoDllPlugin = require(&apos;autodll-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  plugins: [</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      inject: true, // will inject the main bundle to index.html</span><br><span class="line">      template: &apos;./src/index.html&apos;,</span><br><span class="line">    &#125;),</span><br><span class="line">    new AutoDllPlugin(&#123;</span><br><span class="line">      inject: true, // 将会自动注入dll到index.html</span><br><span class="line">      debug: true, // 会在控制台看到执行</span><br><span class="line">      filename: &apos;[name]_[hash].js&apos;,</span><br><span class="line">      path: &apos;./dll&apos;, // 编译出来的存放目录。</span><br><span class="line">      entry: &#123;</span><br><span class="line">        vendor: [ // 这里面写你不需要多次打包的依赖库</span><br><span class="line">          &apos;react&apos;,</span><br><span class="line">          &apos;react-dom&apos;,</span><br><span class="line">          &apos;lodash&apos;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
 <p>注意： 如果你不想手动把第三方依赖的库加入html的话，配合<code>html-webpack-plugin</code>一起使用，可以自动将js加入html.我就是采用的这个方法。可是坑也就是在这里埋下的。</p>
-<p>3.坑来了，猝不及防</p>
-<p>准备就绪之后，我开始执行<code>npm run build</code>。build命令执行之后，可以看到我的编译时间可以说是缩小了一半，太厉害了！<code>build</code>文件夹下也有dll文件夹,里面是我打包进去的vendor.xxx.js。</p>
+<h2 id="坑来了，猝不及防"><a href="#坑来了，猝不及防" class="headerlink" title="坑来了，猝不及防"></a>坑来了，猝不及防</h2><p>准备就绪之后，我开始执行<code>npm run build</code>。build命令执行之后，可以看到我的编译时间可以说是缩小了一半，太厉害了！<code>build</code>文件夹下也有dll文件夹,里面是我打包进去的vendor.xxx.js。</p>
 <p><img src="/images/pasted-0.png" alt="upload successful"><br>但是我打开index.html查看，却没有发现有<code>script</code>标签的源文件是dll/vendor.xxx.js的。我刚开始以为是路径写的不对，开始修改路径。可是越改越乱。无论我怎么改就是不行。</p>
-<p>4.找原因。</p>
-<p>既然是往html中注入，那就肯定和<code>html-webpack-plugin</code>有关。一步一步来。我先按照github上给的demo，在本地运行一下，看看这个功能是否可行。</p>
+<h2 id="找原因。"><a href="#找原因。" class="headerlink" title="找原因。"></a>找原因。</h2><p>既然是往html中注入，那就肯定和<code>html-webpack-plugin</code>有关。一步一步来。我先按照github上给的demo，在本地运行一下，看看这个功能是否可行。</p>
 <p><img src="/images/pasted-2.png" alt="upload successful"></p>
 <p>执行完这个例子，确实是可以的。那为什么我的项目就不可以？<br><br>来看看例子上的<code>html-webpack-plugin</code>版本号</p>
 <p><img src="/images/pasted-3.png" alt="upload successful"><br>再看我项目上用的<code>html-webpack-plugin</code>版本号</p>
 <p><img src="/images/pasted-4.png" alt="upload successful"><br>两个版本对不上。</p>
 <p>运行<code>autodll-webpack-plugin</code>给出打demo，在src/plugins里面进行信息打印，是有输出的。</p>
 <p><img src="/images/pasted-5.png" alt="upload successful"><br>但是在我的项目中这个地方出来的却是<code>undefined</code>。原因找到了，<code>html-webpack-plugin3.0</code>版本用api的是<code>htmlWebpackPluginBeforeHtmlGeneration</code>,但是在4.0.0版本里面缺没有找到这个api。</p>
-<p>5.解决方法：<br>在<code>html-webpack-plugin 4.0.0</code>版本里找到了与此<code>htmlWebpackPluginBeforeHtmlGeneration</code>相同的api</p>
+<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>在<code>html-webpack-plugin 4.0.0</code>版本里找到了与此<code>htmlWebpackPluginBeforeHtmlGeneration</code>相同的api</p>
 
       
     </div>
@@ -586,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -636,6 +648,12 @@
                         <i class="fa fa-fw fa-github"></i>GitHub</a>
                   </span>
                 
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangjian_9253@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
             </div>
           
 
@@ -650,6 +668,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#autodll-webpack-plugin-的作用是什么？"><span class="nav-number">1.</span> <span class="nav-text">autodll-webpack-plugin 的作用是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#autodll-webpack-plugin的使用"><span class="nav-number">2.</span> <span class="nav-text">autodll-webpack-plugin的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑来了，猝不及防"><span class="nav-number">3.</span> <span class="nav-text">坑来了，猝不及防</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#找原因。"><span class="nav-number">4.</span> <span class="nav-text">找原因。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法："><span class="nav-number">5.</span> <span class="nav-text">解决方法：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
