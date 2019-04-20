@@ -81,4 +81,4 @@ theme: next
 deploy:
   type: git
   repo: https://github.com/zhangjiana/zhangjiana.github.io.git
-  branch: gh-pages
+  branch: master
