@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Zhangjian, Blog">
+  <meta name="keywords" content="webpack,">
 
 
 
@@ -87,10 +87,11 @@
 
 
 <meta name="description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-w">
+<meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack 优化打包时间">
 <meta property="og:url" content="https://zhangjiana.github.io/2019/04/18/webpack-优化打包时间/index.html">
-<meta property="og:site_name" content="张舰">
+<meta property="og:site_name" content="有何不可">
 <meta property="og:description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-w">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-0.png">
@@ -98,7 +99,7 @@
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-3.png">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-4.png">
 <meta property="og:image" content="https://zhangjiana.github.io/images/pasted-5.png">
-<meta property="og:updated_time" content="2019-04-20T14:43:18.663Z">
+<meta property="og:updated_time" content="2019-04-21T04:03:09.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack 优化打包时间">
 <meta name="twitter:description" content="随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-w">
@@ -138,7 +139,7 @@
 
 
 
-  <title>webpack 优化打包时间 | 张舰</title>
+  <title>webpack 优化打包时间 | 有何不可</title>
   
 
 
@@ -170,7 +171,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">张舰</span>
+        <span class="site-title">有何不可</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -308,7 +309,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张舰">
+      <meta itemprop="name" content="有何不可">
     </span>
 
     
@@ -351,8 +352,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -468,7 +469,7 @@
     
       <div>
         <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>感谢您的支持！</div>
+  <div>如果觉得对您有帮助，就支持一下吧～</div>
   <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
     <span>打赏</span>
   </button>
@@ -483,7 +484,7 @@
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="Zhang Jian 支付宝">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Zhang Jian 支付宝">
         <div>支付宝</div>
       </div>
     
@@ -517,6 +518,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
 
       
       
@@ -535,6 +542,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/21/关于ajax的跨域请求之预检请求/" rel="prev" title="关于ajax的跨域请求之预检请求">
+                关于ajax的跨域请求之预检请求 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -616,7 +627,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -633,6 +644,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -712,7 +732,7 @@
     
       <span class="post-meta-item-text">博客全站共计字数&#58;</span>
     
-    <span title="博客全站共计字数">1.3k</span>
+    <span title="博客全站共计字数">2.2k</span>
   
 </div>
 
@@ -889,7 +909,7 @@
         notify: false,
         appId: 'nGzc1EGRyfhOC70zye3F5GOq-gzGzoHsz',
         appKey: '4dwdpb3U8zRmhMfNILU7mLim',
-        placeholder: '留下你想说的话吧',
+        placeholder: '留下你想说的话吧,记得写下你的邮箱哦，方便我勾搭～',
         avatar:'mm',
         guest_info:guest,
         pageSize:'10' || 10,

@@ -88,13 +88,13 @@
 
 <meta name="description" content="record my life!">
 <meta property="og:type" content="website">
-<meta property="og:title" content="张舰">
+<meta property="og:title" content="有何不可">
 <meta property="og:url" content="https://zhangjiana.github.io/index.html">
-<meta property="og:site_name" content="张舰">
+<meta property="og:site_name" content="有何不可">
 <meta property="og:description" content="record my life!">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张舰">
+<meta name="twitter:title" content="有何不可">
 <meta name="twitter:description" content="record my life!">
 
 
@@ -131,7 +131,7 @@
 
 
 
-  <title>张舰</title>
+  <title>有何不可</title>
   
 
 
@@ -164,7 +164,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">张舰</span>
+        <span class="site-title">有何不可</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -293,6 +293,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhangjiana.github.io/2019/04/21/关于ajax的跨域请求之预检请求/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Jian">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有何不可">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/21/关于ajax的跨域请求之预检请求/" itemprop="url">关于ajax的跨域请求之预检请求</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T11:28:09+08:00">
+                2019-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/21/关于ajax的跨域请求之预检请求/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/21/关于ajax的跨域请求之预检请求/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/21/关于ajax的跨域请求之预检请求/" class="leancloud_visitors" data-flag-title="关于ajax的跨域请求之预检请求">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  907
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="请求服务器，浏览器返回-OPTIONS"><a href="#请求服务器，浏览器返回-OPTIONS" class="headerlink" title="请求服务器，浏览器返回 OPTIONS"></a>请求服务器，浏览器返回 OPTIONS</h2><p>上周在一个项目中，我打算把token和用户id,通过http协议的header传递给后台，这样比较安全一些。可是我设置完header后，请求后台时，后台给我报了400，提示跨域请求了。我在method的方法中看到并不是我传的GET方法，而是一个OPTION.</p>
+<h2 id="跨域请求的简单请求与非简单请求"><a href="#跨域请求的简单请求与非简单请求" class="headerlink" title="跨域请求的简单请求与非简单请求"></a>跨域请求的简单请求与非简单请求</h2><p>于是在网上搜了一下，找到了原因。原来跨域的时候，浏览器发起的请求分为简单请求和非简单请求。</p>
+<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">参考链接</a></p>
+<ul>
+<li>使用下列方法之一：<ul>
+<li>GET</li>
+<li>HEAD</li>
+<li>POST</li>
+</ul>
+</li>
+<li>Fetch 规范定义了对 CORS 安全的首部字段集合，不得人为设置该集合之外的其他首部字段。该集合为：<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ul>
+</li>
+<li>Content-Type 的值仅限于下列三者之一：<ul>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ul>
+</li>
+<li>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</li>
+<li>请求中没有使用 ReadableStream 对象 </li>
+</ul>
+<p>所以这样来看，我之前只是简单的通过GET方法向后台请求，后台设置 <code>Access-Control-Allow-Origin: *</code> 就可以连通了。<br>但是我这次是设置了自定义的header,没有符合上述简单请求的条件，所以是无法连接上的。</p>
+<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><ul>
+<li>使用了下面任意一种HTTP 方法： <ul>
+<li>PUT</li>
+<li>DELETE</li>
+<li>CONNECT</li>
+<li>OPTIONS</li>
+<li>TRACE</li>
+<li>PATCH</li>
+</ul>
+</li>
+<li>人为设置了对 CORS 安全的首部字段集合之外的其他首部字段。该集合为：<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type (需要注意额外的限制)</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ul>
+</li>
+<li>Content-Type 的值不属于下列之一:<ul>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+<li>text/plain<br>其实说明白了，也就是简单请求的反面，就是非简单请求。非简单请求需要在正式与服务器建立连接之前发送一个预检请求，以获知服务器是否允许该实际请求。”预检请求“的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。这个预检请求就是先向服务器发送了一个METHOD 为 OPTION的方法。<br>我在<code>axios</code>中使用了<code>headers{ userid: params(&#39;userid&#39;)}</code>，即自定义了header,触发了预检请求，所以就向服务器发送了OPTION 方法。服务器那里可能不接受我的请求，所以返回了400。 我问了后台同事了解情况，他们那里是之前封装的统一方法，不认识 OPTION方法，所以给我返回了 400。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>经过协调， 后台在代码中加入以下片段，就可以调通了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (&quot;OPTIONS&quot;.equals(request.getMethod()))&#123;//这里通过判断请求的方法，判断此次是否是预检请求，如果是，立即返回一个204状态吗，标示，允许跨域；预检后，正式请求，这个方法参数就是我们设置的post了</span><br><span class="line">          response.setStatus(HttpStatus.SC_NO_CONTENT); //HttpStatus.SC_NO_CONTENT = 204</span><br><span class="line">          response.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;POST, GET, DELETE, OPTIONS, DELETE&quot;);//当判定为预检请求后，设定允许请求的方法</span><br><span class="line">          response.setHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;Content-Type, x-requested-with, Token&quot;); //当判定为预检请求后，设定允许请求的头部类型</span><br><span class="line">          response.addHeader(&quot;Access-Control-Max-Age&quot;, &quot;1&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>最后终于调通了。以上代码来自<a href="https://segmentfault.com/a/1190000009971254" target="_blank" rel="noopener">cors跨域之简单请求与预检请求（发送请求头带令牌token）</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhangjiana.github.io/2019/04/18/webpack-优化打包时间/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -302,7 +557,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张舰">
+      <meta itemprop="name" content="有何不可">
     </span>
 
     
@@ -347,8 +602,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -511,7 +766,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张舰">
+      <meta itemprop="name" content="有何不可">
     </span>
 
     
@@ -556,8 +811,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/hexo博客/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo博客</span>
                   </a>
                 </span>
 
@@ -740,7 +995,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -757,6 +1012,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -820,7 +1084,7 @@
     
       <span class="post-meta-item-text">博客全站共计字数&#58;</span>
     
-    <span title="博客全站共计字数">1.3k</span>
+    <span title="博客全站共计字数">2.2k</span>
   
 </div>
 
@@ -993,7 +1257,7 @@
         notify: false,
         appId: 'nGzc1EGRyfhOC70zye3F5GOq-gzGzoHsz',
         appKey: '4dwdpb3U8zRmhMfNILU7mLim',
-        placeholder: '留下你想说的话吧',
+        placeholder: '留下你想说的话吧,记得写下你的邮箱哦，方便我勾搭～',
         avatar:'mm',
         guest_info:guest,
         pageSize:'10' || 10,

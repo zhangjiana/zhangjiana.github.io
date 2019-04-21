@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[关于ajax的跨域请求之预检请求]]></title>
+    <url>%2F2019%2F04%2F21%2F%E5%85%B3%E4%BA%8Eajax%E7%9A%84%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%E4%B9%8B%E9%A2%84%E6%A3%80%E8%AF%B7%E6%B1%82%2F</url>
+    <content type="text"><![CDATA[请求服务器，浏览器返回 OPTIONS上周在一个项目中，我打算把token和用户id,通过http协议的header传递给后台，这样比较安全一些。可是我设置完header后，请求后台时，后台给我报了400，提示跨域请求了。我在method的方法中看到并不是我传的GET方法，而是一个OPTION. 跨域请求的简单请求与非简单请求于是在网上搜了一下，找到了原因。原来跨域的时候，浏览器发起的请求分为简单请求和非简单请求。 简单请求参考链接 使用下列方法之一： GET HEAD POST Fetch 规范定义了对 CORS 安全的首部字段集合，不得人为设置该集合之外的其他首部字段。该集合为： Accept Accept-Language Content-Language Content-Type （需要注意额外的限制） DPR Downlink Save-Data Viewport-Width Width Content-Type 的值仅限于下列三者之一： text/plain multipart/form-data application/x-www-form-urlencoded 请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。 请求中没有使用 ReadableStream 对象 所以这样来看，我之前只是简单的通过GET方法向后台请求，后台设置 Access-Control-Allow-Origin: * 就可以连通了。但是我这次是设置了自定义的header,没有符合上述简单请求的条件，所以是无法连接上的。 非简单请求 使用了下面任意一种HTTP 方法： PUT DELETE CONNECT OPTIONS TRACE PATCH 人为设置了对 CORS 安全的首部字段集合之外的其他首部字段。该集合为： Accept Accept-Language Content-Language Content-Type (需要注意额外的限制) DPR Downlink Save-Data Viewport-Width Width Content-Type 的值不属于下列之一: application/x-www-form-urlencoded multipart/form-data text/plain其实说明白了，也就是简单请求的反面，就是非简单请求。非简单请求需要在正式与服务器建立连接之前发送一个预检请求，以获知服务器是否允许该实际请求。”预检请求“的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。这个预检请求就是先向服务器发送了一个METHOD 为 OPTION的方法。我在axios中使用了headers{ userid: params(&#39;userid&#39;)}，即自定义了header,触发了预检请求，所以就向服务器发送了OPTION 方法。服务器那里可能不接受我的请求，所以返回了400。 我问了后台同事了解情况，他们那里是之前封装的统一方法，不认识 OPTION方法，所以给我返回了 400。 解决方法经过协调， 后台在代码中加入以下片段，就可以调通了12345if (&quot;OPTIONS&quot;.equals(request.getMethod()))&#123;//这里通过判断请求的方法，判断此次是否是预检请求，如果是，立即返回一个204状态吗，标示，允许跨域；预检后，正式请求，这个方法参数就是我们设置的post了 response.setStatus(HttpStatus.SC_NO_CONTENT); //HttpStatus.SC_NO_CONTENT = 204 response.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;POST, GET, DELETE, OPTIONS, DELETE&quot;);//当判定为预检请求后，设定允许请求的方法 response.setHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;Content-Type, x-requested-with, Token&quot;); //当判定为预检请求后，设定允许请求的头部类型 response.addHeader(&quot;Access-Control-Max-Age&quot;, &quot;1&quot;); 最后终于调通了。以上代码来自cors跨域之简单请求与预检请求（发送请求头带令牌token）]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ajax跨域</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[webpack 优化打包时间]]></title>
     <url>%2F2019%2F04%2F18%2Fwebpack-%E4%BC%98%E5%8C%96%E6%89%93%E5%8C%85%E6%97%B6%E9%97%B4%2F</url>
     <content type="text"><![CDATA[随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLReferencePlugin实现自动整合，插入html，非常方便。话不多说，开始搞起。 autodll-webpack-plugin 的作用是什么？在webpack打包时，对于第三方依赖的库，比如Vue,vuex,vue-router,react,react-dom等这些不会更改的依赖。webpack 也都会默认的进行打包，然后加到html中。这个是比较浪费的，因为我们只需要对更改的文件进行打包，未更改的依赖直接加到html上就好。 autodll-webpack-plugin的作用就是让依赖代码和常常修改的代码分开打包，每次更改我的代码后，webpack只需要打包我更改的代码，对于第三方依赖，只在第一次打包的时候打包一次，以后都不会再打包，这样来减少打包时长。 其实最早用此方法的是DLLPlugin 和 DLLReferencePlugin。只不过这俩用起来不太自动化，需要一些手动配置。所以我就想一步到位，使用autodll-webpack-plugin 自动整合。 autodll-webpack-plugin的使用autodll-webpack-plugin webpack 4下，执行：1npm install --save autodll-webpack-plugin webpack 2 / 3下，执行：1npm install --save autodll-webpack-plugin 接着在你的webpack.config.prod.js中引入如下代码：（怎样在react中找到wepback的配置文件，自行搜索）12345678910111213141516171819202122const AutoDllPlugin = require(&apos;autodll-webpack-plugin&apos;); plugins: [ new HtmlWebpackPlugin(&#123; inject: true, // will inject the main bundle to index.html template: &apos;./src/index.html&apos;, &#125;), new AutoDllPlugin(&#123; inject: true, // 将会自动注入dll到index.html debug: true, // 会在控制台看到执行 filename: &apos;[name]_[hash].js&apos;, path: &apos;./dll&apos;, // 编译出来的存放目录。 entry: &#123; vendor: [ // 这里面写你不需要多次打包的依赖库 &apos;react&apos;, &apos;react-dom&apos;, &apos;lodash&apos; ] &#125; &#125;) ] 注意： 如果你不想手动把第三方依赖的库加入html的话，配合html-webpack-plugin一起使用，可以自动将js加入html.我就是采用的这个方法。可是坑也就是在这里埋下的。 坑来了，猝不及防准备就绪之后，我开始执行npm run build。build命令执行之后，可以看到我的编译时间可以说是缩小了一半，太厉害了！build文件夹下也有dll文件夹,里面是我打包进去的vendor.xxx.js。 但是我打开index.html查看，却没有发现有script标签的源文件是dll/vendor.xxx.js的。我刚开始以为是路径写的不对，开始修改路径。可是越改越乱。无论我怎么改就是不行。 找原因。既然是往html中注入，那就肯定和html-webpack-plugin有关。一步一步来。我先按照github上给的demo，在本地运行一下，看看这个功能是否可行。 执行完这个例子，确实是可以的。那为什么我的项目就不可以？来看看例子上的html-webpack-plugin版本号 再看我项目上用的html-webpack-plugin版本号 两个版本对不上。 运行autodll-webpack-plugin给出打demo，在src/plugins里面进行信息打印，是有输出的。 但是在我的项目中这个地方出来的却是undefined。原因找到了，html-webpack-plugin3.0版本用api的是htmlWebpackPluginBeforeHtmlGeneration,但是在4.0.0版本里面缺没有找到这个api。 解决方法：在html-webpack-plugin 4.0.0版本里找到了与此htmlWebpackPluginBeforeHtmlGeneration相同的api]]></content>
       <categories>
-        <category>webpack</category>
+        <category>前端</category>
       </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[hexo 博客网站搭建记录]]></title>
     <url>%2F2019%2F04%2F13%2Fhello%2F</url>
     <content type="text"><![CDATA[hexo 热更新1$ hexo s -g --debug 支持热更新，修改配置文件后刷新一下可以看到即时效果 但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写） hexo 更改主题 在https://hexo.io/themes/找到喜欢的主题 使用git clone 下喜欢的主题 克隆后，找到_config.yml文件中的theme,将名称改为主题名称即可 hexo 发到github pages 上时遇到的坑（1） 执行hexo deploy后， 总是收到邮件 pages build failed。回到github 上本仓库的setting,可以看到‘ The tag fancybox on line 77 in themes/landscape/’ 报了这个错误。 根本原因是 hexo 的默认主题 landscape 中的readme.md中一些描述不符合github pages 中的一些规定， 把这个readme.md 删掉就可以了。 （2）执行了hexo deploy后，我以为就完事了，打开我的https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。 在网上搜了一下。在_config.yml中最下面的deploy中，加上branch: master。 重新部署就可以了。官网上说的是默认会知道当前的分支，不用指定，可我发现还是指定了才能打开博客页面。 最后 大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！]]></content>
       <categories>
-        <category>hexo</category>
+        <category>hexo博客</category>
       </categories>
   </entry>
 </search>
