@@ -438,71 +438,16 @@
       
         
           
-            <h2 id="请求服务器，浏览器返回-OPTIONS"><a href="#请求服务器，浏览器返回-OPTIONS" class="headerlink" title="请求服务器，浏览器返回 OPTIONS"></a>请求服务器，浏览器返回 OPTIONS</h2><p>上周在一个项目中，我打算把token和用户id,通过http协议的header传递给后台，这样比较安全一些。可是我设置完header后，请求后台时，后台给我报了400，提示跨域请求了。我在method的方法中看到并不是我传的GET方法，而是一个OPTION.</p>
-<h2 id="跨域请求的简单请求与非简单请求"><a href="#跨域请求的简单请求与非简单请求" class="headerlink" title="跨域请求的简单请求与非简单请求"></a>跨域请求的简单请求与非简单请求</h2><p>于是在网上搜了一下，找到了原因。原来跨域的时候，浏览器发起的请求分为简单请求和非简单请求。</p>
-<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">参考链接</a></p>
-<ul>
-<li>使用下列方法之一：<ul>
-<li>GET</li>
-<li>HEAD</li>
-<li>POST</li>
-</ul>
-</li>
-<li>Fetch 规范定义了对 CORS 安全的首部字段集合，不得人为设置该集合之外的其他首部字段。该集合为：<ul>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ul>
-</li>
-<li>Content-Type 的值仅限于下列三者之一：<ul>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ul>
-</li>
-<li>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</li>
-<li>请求中没有使用 ReadableStream 对象 </li>
-</ul>
-<p>所以这样来看，我之前只是简单的通过GET方法向后台请求，后台设置 <code>Access-Control-Allow-Origin: *</code> 就可以连通了。<br>但是我这次是设置了自定义的header,没有符合上述简单请求的条件，所以是无法连接上的。</p>
-<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><ul>
-<li>使用了下面任意一种HTTP 方法： <ul>
-<li>PUT</li>
-<li>DELETE</li>
-<li>CONNECT</li>
-<li>OPTIONS</li>
-<li>TRACE</li>
-<li>PATCH</li>
-</ul>
-</li>
-<li>人为设置了对 CORS 安全的首部字段集合之外的其他首部字段。该集合为：<ul>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type (需要注意额外的限制)</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ul>
-</li>
-<li>Content-Type 的值不属于下列之一:<ul>
-<li>application/x-www-form-urlencoded</li>
-<li>multipart/form-data</li>
-<li>text/plain<br>其实说明白了，也就是简单请求的反面，就是非简单请求。非简单请求需要在正式与服务器建立连接之前发送一个预检请求，以获知服务器是否允许该实际请求。”预检请求“的使用，可以避免跨域请求对服务器的用户数据产生未预期的影响。这个预检请求就是先向服务器发送了一个METHOD 为 OPTION的方法。<br>我在<code>axios</code>中使用了<code>headers{ userid: params(&#39;userid&#39;)}</code>，即自定义了header,触发了预检请求，所以就向服务器发送了OPTION 方法。服务器那里可能不接受我的请求，所以返回了400。 我问了后台同事了解情况，他们那里是之前封装的统一方法，不认识 OPTION方法，所以给我返回了 400。</li>
-</ul>
-</li>
-</ul>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>经过协调， 后台在代码中加入以下片段，就可以调通了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (&quot;OPTIONS&quot;.equals(request.getMethod()))&#123;//这里通过判断请求的方法，判断此次是否是预检请求，如果是，立即返回一个204状态吗，标示，允许跨域；预检后，正式请求，这个方法参数就是我们设置的post了</span><br><span class="line">          response.setStatus(HttpStatus.SC_NO_CONTENT); //HttpStatus.SC_NO_CONTENT = 204</span><br><span class="line">          response.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;POST, GET, DELETE, OPTIONS, DELETE&quot;);//当判定为预检请求后，设定允许请求的方法</span><br><span class="line">          response.setHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;Content-Type, x-requested-with, Token&quot;); //当判定为预检请求后，设定允许请求的头部类型</span><br><span class="line">          response.addHeader(&quot;Access-Control-Max-Age&quot;, &quot;1&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>最后终于调通了。以上代码来自<a href="https://segmentfault.com/a/1190000009971254" target="_blank" rel="noopener">cors跨域之简单请求与预检请求（发送请求头带令牌token）</a></p>
-
-          
+          请求服务器，浏览器返回 OPTIONS上周在一个项目中，我打算把token和用户id,通过http协议的header传递给后台，这样比较安全一些。可是我设置完header后，请求后台时，后台给我报了400，提示跨域请求了。我在method的方法中看到并不是我传的GET方法，而是一个OPTION.
+跨
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/21/关于ajax的跨域请求之预检请求/#更多" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -693,25 +638,15 @@
       
         
           
-            <p>随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个<code>autodll-webpack-plugin</code>的插件，觉得很有效。是结合了之前的<code>DLLPlugin</code>和<code>DLLReferencePlugin</code>实现自动整合，插入html，非常方便。话不多说，开始搞起。</p>
-<h2 id="autodll-webpack-plugin-的作用是什么？"><a href="#autodll-webpack-plugin-的作用是什么？" class="headerlink" title="autodll-webpack-plugin 的作用是什么？"></a><code>autodll-webpack-plugin</code> 的作用是什么？</h2><p>在webpack打包时，对于第三方依赖的库，比如Vue,vuex,vue-router,react,react-dom等这些不会更改的依赖。webpack 也都会默认的进行打包，然后加到html中。这个是比较浪费的，因为我们只需要对更改的文件进行打包，未更改的依赖直接加到html上就好。 <code>autodll-webpack-plugin</code>的作用就是让依赖代码和常常修改的代码分开打包，每次更改我的代码后，webpack只需要打包我更改的代码，对于第三方依赖，只在第一次打包的时候打包一次，以后都不会再打包，这样来减少打包时长。 其实最早用此方法的是<code>DLLPlugin</code> 和 <code>DLLReferencePlugin</code>。只不过这俩用起来不太自动化，需要一些手动配置。所以我就想一步到位，使用<code>autodll-webpack-plugin</code> 自动整合。</p>
-<h2 id="autodll-webpack-plugin的使用"><a href="#autodll-webpack-plugin的使用" class="headerlink" title="autodll-webpack-plugin的使用"></a><code>autodll-webpack-plugin</code>的使用</h2><p><a href="https://github.com/asfktz/autodll-webpack-plugin" target="_blank" rel="noopener">autodll-webpack-plugin</a></p>
-<p>webpack 4下，执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save autodll-webpack-plugin</span><br></pre></td></tr></table></figure></p>
-<p>webpack 2 / 3下，执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save autodll-webpack-plugin</span><br></pre></td></tr></table></figure></p>
-<p>接着在你的webpack.config.prod.js中引入如下代码：<br>（怎样在react中找到wepback的配置文件，自行搜索）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const AutoDllPlugin = require(&apos;autodll-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  plugins: [</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      inject: true, // will inject the main bundle to index.html</span><br><span class="line">      template: &apos;./src/index.html&apos;,</span><br><span class="line">    &#125;),</span><br><span class="line">    new AutoDllPlugin(&#123;</span><br><span class="line">      inject: true, // 将会自动注入dll到index.html</span><br><span class="line">      debug: true, // 会在控制台看到执行</span><br><span class="line">      filename: &apos;[name]_[hash].js&apos;,</span><br><span class="line">      path: &apos;./dll&apos;, // 编译出来的存放目录。</span><br><span class="line">      entry: &#123;</span><br><span class="line">        vendor: [ // 这里面写你不需要多次打包的依赖库</span><br><span class="line">          &apos;react&apos;,</span><br><span class="line">          &apos;react-dom&apos;,</span><br><span class="line">          &apos;lodash&apos;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
-<p>注意： 如果你不想手动把第三方依赖的库加入html的话，配合<code>html-webpack-plugin</code>一起使用，可以自动将js加入html.我就是采用的这个方法。可是坑也就是在这里埋下的。</p>
-<h2 id="坑来了，猝不及防"><a href="#坑来了，猝不及防" class="headerlink" title="坑来了，猝不及防"></a>坑来了，猝不及防</h2><p>准备就绪之后，我开始执行<code>npm run build</code>。build命令执行之后，可以看到我的编译时间可以说是缩小了一半，太厉害了！<code>build</code>文件夹下也有dll文件夹,里面是我打包进去的vendor.xxx.js。</p>
-<p><img src="/images/pasted-0.png" alt="upload successful"><br>但是我打开index.html查看，却没有发现有<code>script</code>标签的源文件是dll/vendor.xxx.js的。我刚开始以为是路径写的不对，开始修改路径。可是越改越乱。无论我怎么改就是不行。</p>
-<h2 id="找原因。"><a href="#找原因。" class="headerlink" title="找原因。"></a>找原因。</h2><p>既然是往html中注入，那就肯定和<code>html-webpack-plugin</code>有关。一步一步来。我先按照github上给的demo，在本地运行一下，看看这个功能是否可行。</p>
-<p><img src="/images/pasted-2.png" alt="upload successful"></p>
-<p>执行完这个例子，确实是可以的。那为什么我的项目就不可以？<br><br>来看看例子上的<code>html-webpack-plugin</code>版本号</p>
-<p><img src="/images/pasted-3.png" alt="upload successful"><br>再看我项目上用的<code>html-webpack-plugin</code>版本号</p>
-<p><img src="/images/pasted-4.png" alt="upload successful"><br>两个版本对不上。</p>
-<p>运行<code>autodll-webpack-plugin</code>给出打demo，在src/plugins里面进行信息打印，是有输出的。</p>
-<p><img src="/images/pasted-5.png" alt="upload successful"><br>但是在我的项目中这个地方出来的却是<code>undefined</code>。原因找到了，<code>html-webpack-plugin3.0</code>版本用api的是<code>htmlWebpackPluginBeforeHtmlGeneration</code>,但是在4.0.0版本里面缺没有找到这个api。</p>
-<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>在<code>html-webpack-plugin 4.0.0</code>版本里找到了与此<code>htmlWebpackPluginBeforeHtmlGeneration</code>相同的api</p>
-
-          
+          随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个autodll-webpack-plugin的插件，觉得很有效。是结合了之前的DLLPlugin和DLLRefe
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/18/webpack-优化打包时间/#更多" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -863,7 +798,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  376
+                  507
                 </span>
               
 
@@ -902,19 +837,19 @@
       
         
           
-            <h2 id="hexo-热更新"><a href="#hexo-热更新" class="headerlink" title="hexo 热更新"></a>hexo 热更新</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hexo s -g --debug</span><br></pre></td></tr></table></figure>
-<p>支持热更新，修改配置文件后刷新一下可以看到即时效果</p>
-<p>但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写）</p>
-<h2 id="hexo-更改主题"><a href="#hexo-更改主题" class="headerlink" title="hexo 更改主题"></a>hexo 更改主题</h2><ol>
-<li>在<a href="https://hexo.io/themes/找到喜欢的主题" target="_blank" rel="noopener">https://hexo.io/themes/找到喜欢的主题</a> </li>
-<li>使用git clone 下喜欢的主题</li>
-<li>克隆后，找到_config.yml文件中的theme,将名称改为主题名称即可</li>
-</ol>
-<h2 id="hexo-发到github-pages-上时遇到的坑"><a href="#hexo-发到github-pages-上时遇到的坑" class="headerlink" title="hexo 发到github pages 上时遇到的坑"></a>hexo 发到github pages 上时遇到的坑</h2><p>（1） 执行<code>hexo deploy</code>后， 总是收到邮件 pages build failed。回到github 上本仓库的setting,可以看到‘    The tag fancybox on line 77 in themes/landscape/’ 报了这个错误。<br> 根本原因是 hexo 的默认主题 landscape 中的readme.md中一些描述不符合github pages 中的一些规定， 把这个readme.md 删掉就可以了。</p>
-<p> （2）执行了<code>hexo deploy</code>后，我以为就完事了，打开我的<a href="https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。">https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。</a><br> 在网上搜了一下。在_config.yml中最下面的deploy中，加上branch: master。 重新部署就可以了。官网上说的是默认会知道当前的分支，不用指定，可我发现还是指定了才能打开博客页面。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p> 大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！</p>
-
-          
+          hexo 热更新1$ hexo s -g --debug
+支持热更新，修改配置文件后刷新一下可以看到即时效果
+但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写）
+hexo 更改主题
+在https://hexo.io/themes/找到
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/13/hello/#更多" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1084,7 +1019,7 @@
     
       <span class="post-meta-item-text">博客全站共计字数&#58;</span>
     
-    <span title="博客全站共计字数">2.2k</span>
+    <span title="博客全站共计字数">2.3k</span>
   
 </div>
 

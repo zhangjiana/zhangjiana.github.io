@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="有何不可">
 <meta property="og:description" content="hexo 热更新1$ hexo s -g --debug 支持热更新，修改配置文件后刷新一下可以看到即时效果 但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写） hexo 更改主题 在https://hexo.io/themes/找到喜欢的主题  使用git clone 下喜欢的主题 克隆后，找到_config.yml文件中的the">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-21T04:03:14.076Z">
+<meta property="og:updated_time" content="2019-04-21T04:26:37.274Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 博客网站搭建记录">
 <meta name="twitter:description" content="hexo 热更新1$ hexo s -g --debug 支持热更新，修改配置文件后刷新一下可以看到即时效果 但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写） hexo 更改主题 在https://hexo.io/themes/找到喜欢的主题  使用git clone 下喜欢的主题 克隆后，找到_config.yml文件中的the">
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  376
+                  507
                 </span>
               
 
@@ -444,7 +444,12 @@
 </ol>
 <h2 id="hexo-发到github-pages-上时遇到的坑"><a href="#hexo-发到github-pages-上时遇到的坑" class="headerlink" title="hexo 发到github pages 上时遇到的坑"></a>hexo 发到github pages 上时遇到的坑</h2><p>（1） 执行<code>hexo deploy</code>后， 总是收到邮件 pages build failed。回到github 上本仓库的setting,可以看到‘    The tag fancybox on line 77 in themes/landscape/’ 报了这个错误。<br> 根本原因是 hexo 的默认主题 landscape 中的readme.md中一些描述不符合github pages 中的一些规定， 把这个readme.md 删掉就可以了。</p>
 <p> （2）执行了<code>hexo deploy</code>后，我以为就完事了，打开我的<a href="https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。">https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。</a><br> 在网上搜了一下。在_config.yml中最下面的deploy中，加上branch: master。 重新部署就可以了。官网上说的是默认会知道当前的分支，不用指定，可我发现还是指定了才能打开博客页面。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p> 大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！</p>
+<h2 id="hexo-打开阅读全文"><a href="#hexo-打开阅读全文" class="headerlink" title="hexo 打开阅读全文"></a>hexo 打开阅读全文</h2><p>Hexo 的 Next 主题默认是首页显示你每篇文章的全文内容，但这会使你的首页篇幅过于冗长。<br>在theme/next目录下的_config.yml中，找到下面代码，改为<code>ture</code>即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto_excerpt:</span><br><span class="line">      enable: false</span><br><span class="line">      length: 150</span><br></pre></td></tr></table></figure></p>
+<h2 id="hexo-加入阅读次数"><a href="#hexo-加入阅读次数" class="headerlink" title="hexo  加入阅读次数"></a>hexo  加入阅读次数</h2><ol>
+<li><p>打开leancloud官网 <a href="https://leancloud.cn，注册一个账号。然后创建一个class" target="_blank" rel="noopener">https://leancloud.cn，注册一个账号。然后创建一个class</a> 为 Counter的类，然后在heme/next目录下的_config.yml中，找到<code>leancloud_visitors</code>，把你的appid 和appkey填进去，重新启动就可以了。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！</p>
+</li>
+</ol>
 
       
     </div>
@@ -675,7 +680,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-热更新"><span class="nav-number">1.</span> <span class="nav-text">hexo 热更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-更改主题"><span class="nav-number">2.</span> <span class="nav-text">hexo 更改主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-发到github-pages-上时遇到的坑"><span class="nav-number">3.</span> <span class="nav-text">hexo 发到github pages 上时遇到的坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-热更新"><span class="nav-number">1.</span> <span class="nav-text">hexo 热更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-更改主题"><span class="nav-number">2.</span> <span class="nav-text">hexo 更改主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-发到github-pages-上时遇到的坑"><span class="nav-number">3.</span> <span class="nav-text">hexo 发到github pages 上时遇到的坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-打开阅读全文"><span class="nav-number">4.</span> <span class="nav-text">hexo 打开阅读全文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo-加入阅读次数"><span class="nav-number">5.</span> <span class="nav-text">hexo  加入阅读次数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
 
           </div>
@@ -709,7 +714,7 @@
     
       <span class="post-meta-item-text">博客全站共计字数&#58;</span>
     
-    <span title="博客全站共计字数">2.2k</span>
+    <span title="博客全站共计字数">2.3k</span>
   
 </div>
 
