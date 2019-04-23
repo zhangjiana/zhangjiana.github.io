@@ -1,8 +1,8 @@
 title: webpack 优化打包时间
 copyright: true
-tags:
 categories: webpack
 date: 2019-04-18 12:55:00
+tags:
 ---
 随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个`autodll-webpack-plugin`的插件，觉得很有效。是结合了之前的`DLLPlugin`和`DLLReferencePlugin`实现自动整合，插入html，非常方便。话不多说，开始搞起。
 
@@ -81,4 +81,25 @@ const AutoDllPlugin = require('autodll-webpack-plugin');
 但是在我的项目中这个地方出来的却是`undefined`。原因找到了，`html-webpack-plugin3.0`版本用api的是`htmlWebpackPluginBeforeHtmlGeneration`,但是在4.0.0版本里面缺没有找到这个api。
 
 ## 解决方法：
-在`html-webpack-plugin 4.0.0`版本里找到了与此`htmlWebpackPluginBeforeHtmlGeneration`相同的api
+在`html-webpack-plugin 4.0.0`版本里找到了与此`htmlWebpackPluginBeforeHtmlGeneration`相同的api`beforeAssetTagGeneration`。于是就开始更改`autodll-webpack-plugin`中的lib/plugins.js文件。
+具体更改如下：
+要先引入 4.0.0的`html-webpack-plugin`
+```
+var HtmlWebpackPlugin = require('../../react-scripts/node_modules/html-webpack-plugin');
+```
+然后更换新的api 
+```
+compiler.hooks.compilation.tap('AutoDllPlugin', function (compilation) {
+          if (!HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration) {
+            return;
+          }
+
+          HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync('AutoDllPlugin', doCompilation);
+        });
+```
+然后执行 `yarn build`
+
+可以看到，已经自动加到index.html中了。完成！
+![upload successful](/images/pasted-6.png)
+
+
