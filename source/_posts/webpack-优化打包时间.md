@@ -1,7 +1,7 @@
 title: webpack 优化打包时间
 copyright: true
-tags:
-categories: webpack
+tags: ['webpack']
+categories: [前端]
 date: 2019-04-18 12:55:00
 ---
 随着项目业务越来越多，引入的包就越来越多，发现项目的打包时间太长了，需要优化一下。网上搜到的那行方法，基本上在项目中都做了。项目是react, 用的antd,也使用了按需引入。后来看到一个`autodll-webpack-plugin`的插件，觉得很有效。是结合了之前的`DLLPlugin`和`DLLReferencePlugin`实现自动整合，插入html，非常方便。话不多说，开始搞起。
