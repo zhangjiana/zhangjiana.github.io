@@ -1,11 +1,7 @@
+---
 title: webpack 优化打包时间
 copyright: true
-<<<<<<< HEAD
-tags: ['webpack']
-categories: [前端]
-=======
 categories: webpack
->>>>>>> 72a220bedc586583e1767e955cc3f1edf4dd57ec
 date: 2019-04-18 12:55:00
 tags:
 ---
@@ -105,6 +101,4 @@ compiler.hooks.compilation.tap('AutoDllPlugin', function (compilation) {
 然后执行 `yarn build`
 
 可以看到，已经自动加到index.html中了。完成！
-![upload successful](/images/pasted-6.png)
-
 
