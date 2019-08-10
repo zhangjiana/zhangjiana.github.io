@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="record my life!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="有何不可">
-<meta property="og:url" content="https://zhangjiana.github.io/diary/index.html">
+<meta name="description" content="Flutter 的两个抽象类 Flutter 分为 StatelessWidget 和 StatefulWidget 两个抽象类，为我们提供自定义组件.StatelessWidget 是无状态控件， 即不可变状态的控件,通过构建其他控件来描述用户界面的一部分。StatefulWidget 是有状态控件，可以定义一个具有可变状态的控件。实现一个 stateful widget 至少需要两个类：（1）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 学习笔记（一）">
+<meta property="og:url" content="https://zhangjiana.github.io/2019/07/10/Flutter-学习笔记（二）/index.html">
 <meta property="og:site_name" content="有何不可">
-<meta property="og:description" content="record my life!">
+<meta property="og:description" content="Flutter 的两个抽象类 Flutter 分为 StatelessWidget 和 StatefulWidget 两个抽象类，为我们提供自定义组件.StatelessWidget 是无状态控件， 即不可变状态的控件,通过构建其他控件来描述用户界面的一部分。StatefulWidget 是有状态控件，可以定义一个具有可变状态的控件。实现一个 stateful widget 至少需要两个类：（1）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-12T23:56:56.286Z">
+<meta property="og:updated_time" content="2019-08-10T07:00:02.838Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="有何不可">
-<meta name="twitter:description" content="record my life!">
+<meta name="twitter:title" content="Flutter 学习笔记（一）">
+<meta name="twitter:description" content="Flutter 的两个抽象类 Flutter 分为 StatelessWidget 和 StatefulWidget 两个抽象类，为我们提供自定义组件.StatelessWidget 是无状态控件， 即不可变状态的控件,通过构建其他控件来描述用户界面的一部分。StatefulWidget 是有状态控件，可以定义一个具有可变状态的控件。实现一个 stateful widget 至少需要两个类：（1）">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://zhangjiana.github.io/diary/">
+  <link rel="canonical" href="https://zhangjiana.github.io/2019/07/10/Flutter-学习笔记（二）/">
 
 
 
 
 
-  <title> | 有何不可</title>
+  <title>Flutter 学习笔记（一） | 有何不可</title>
   
 
 
@@ -281,33 +281,268 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhangjiana.github.io/2019/07/10/Flutter-学习笔记（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Jian">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="有何不可">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline"></h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">Flutter 学习笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T22:29:43+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/10/Flutter-学习笔记（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/10/Flutter-学习笔记（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/10/Flutter-学习笔记（二）/" class="leancloud_visitors" data-flag-title="Flutter 学习笔记（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  448
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="Flutter-的两个抽象类"><a href="#Flutter-的两个抽象类" class="headerlink" title="Flutter 的两个抽象类"></a>Flutter 的两个抽象类</h1><ol>
+<li><p><code>Flutter</code> 分为 <code>StatelessWidget</code> 和 <code>StatefulWidget</code> 两个抽象类，为我们提供自定义组件.<br><code>StatelessWidget</code> 是无状态控件， 即不可变状态的控件,通过构建其他控件来描述用户界面的一部分。<br><code>StatefulWidget</code> 是有状态控件，可以定义一个具有可变状态的控件。实现一个 stateful widget 至少需要两个类：<br>（1）一个 <code>StatefulWidget</code> 类；<br>（2）一个 <code>State</code> 类，<code>StatefulWidget</code> 类本身是不变的，但是 State 类在 widget 生命周期中始终存在。</p>
+<h2 id="举例说明："><a href="#举例说明：" class="headerlink" title="举例说明："></a>举例说明：</h2><p>官网的例子实现一个随机变化的英文字符串</p>
+<ol>
+<li><p>先创建一个最简单的 state 类,然后重写build 方法，返回随机字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class RandomWordsState extends State&lt;RandomWords&gt; &#123;</span><br><span class="line">  @override</span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    final wordPair = WordPair.random();</span><br><span class="line">    return Text(wordPair.asPascalCase);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加有状态的RandomWords widget</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class RandomWords extends StatefulWidget &#123;</span><br><span class="line">  @override</span><br><span class="line">  RandomWordsState createState() =&gt; RandomWordsState();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>StatelessWidget</code> 中写界面显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyApp extends StatelessWidget &#123;</span><br><span class="line">  @override</span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    return MaterialApp(</span><br><span class="line">      title: &apos;Welcome to Flutter&apos;,</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        title: Text(&apos;Welcome to Flutter&apos;),</span><br><span class="line">        body: Center(</span><br><span class="line">          child: RandomWords()</span><br><span class="line">        )</span><br><span class="line">      )</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启应用。应用应该像之前一样运行，每次热重载或保存应用程序时都会显示一个单词对</p>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="Flutter-使用外部package"><a href="#Flutter-使用外部package" class="headerlink" title="Flutter 使用外部package"></a>Flutter 使用外部package</h1><h2 id="举例说明：-添加english-words软件包"><a href="#举例说明：-添加english-words软件包" class="headerlink" title="举例说明： 添加english_words软件包"></a>举例说明： 添加<code>english_words</code>软件包</h2><ol>
+<li><p>在pubspec.yaml 中，将 english_words（3.1.0或更高版本）添加到依赖项列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  dependencies:            </span><br><span class="line">  flutter:            </span><br><span class="line">  sdk: flutter            </span><br><span class="line">  cupertino_icons: ^0.1.2            </span><br><span class="line">+ english_words: ^3.1.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 Android Studio 的编辑器视图中查看 pubspec 时，单击右上角的 Packages get，这会将依赖包安装到你的项目。或者在终端输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter pub get</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>lib/main.dart</code>中引入,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;package:english_words/english_words.dart&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>pubspec.yaml</code> 管理Flutter 应用程序的assets(资源，如图片、package等), 个人暂且理解为<code>package.json</code>, 如果不对欢迎指正。</p>
+
       
     </div>
     
     
     
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果觉得对您有帮助，就支持一下吧～</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="Zhang Jian 微信支付">
+        <div>微信支付</div>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Zhang Jian 支付宝">
+        <div>支付宝</div>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Zhang Jian
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://zhangjiana.github.io/2019/07/10/Flutter-学习笔记（二）/" title="Flutter 学习笔记（一）">https://zhangjiana.github.io/2019/07/10/Flutter-学习笔记（二）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/mongoDB的安装/" rel="next" title="mongoDB的安装">
+                <i class="fa fa-chevron-left"></i> mongoDB的安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/10/Flutter-学习笔记（一）/" rel="prev" title="Flutter 学习笔记（一）">
+                Flutter 学习笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -343,8 +578,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -422,6 +666,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-的两个抽象类"><span class="nav-number">1.</span> <span class="nav-text">Flutter 的两个抽象类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例说明："><span class="nav-number">1.1.</span> <span class="nav-text">举例说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-使用外部package"><span class="nav-number">2.</span> <span class="nav-text">Flutter 使用外部package</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例说明：-添加english-words软件包"><span class="nav-number">2.1.</span> <span class="nav-text">举例说明： 添加english_words软件包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.1.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

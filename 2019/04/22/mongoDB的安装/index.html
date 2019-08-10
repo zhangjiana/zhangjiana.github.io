@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="第一步：下载打开https://www.mongodb.com/download-center，选择`server`tab选项，会根据你的电脑显示下载包。点击`Download`. 第二部：安装将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键command + shift + G,然后输入/usr/local">
+<meta name="description" content="第一步：下载打开https://www.mongodb.com/download-center， 选择servertab选项，会根据你的电脑显示下载包。点击Download. 第二部：安装将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键command + shift + G,然后输入/usr/local,点击">
 <meta name="keywords" content="mongoDb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongoDB的安装">
 <meta property="og:url" content="https://zhangjiana.github.io/2019/04/22/mongoDB的安装/index.html">
 <meta property="og:site_name" content="有何不可">
-<meta property="og:description" content="第一步：下载打开https://www.mongodb.com/download-center，选择`server`tab选项，会根据你的电脑显示下载包。点击`Download`. 第二部：安装将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键command + shift + G,然后输入/usr/local">
+<meta property="og:description" content="第一步：下载打开https://www.mongodb.com/download-center， 选择servertab选项，会根据你的电脑显示下载包。点击Download. 第二部：安装将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键command + shift + G,然后输入/usr/local,点击">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-22T15:01:57.192Z">
+<meta property="og:updated_time" content="2019-08-04T12:58:20.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongoDB的安装">
-<meta name="twitter:description" content="第一步：下载打开https://www.mongodb.com/download-center，选择`server`tab选项，会根据你的电脑显示下载包。点击`Download`. 第二部：安装将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键command + shift + G,然后输入/usr/local">
+<meta name="twitter:description" content="第一步：下载打开https://www.mongodb.com/download-center， 选择servertab选项，会根据你的电脑显示下载包。点击Download. 第二部：安装将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键command + shift + G,然后输入/usr/local,点击">
 
 
 
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  107
+                  754
                 </span>
               
 
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -413,8 +413,19 @@
       
 
       
-        <h2 id="第一步：下载"><a href="#第一步：下载" class="headerlink" title="第一步：下载"></a>第一步：下载</h2><p>打开<a href="https://www.mongodb.com/download-center，选择`server`tab选项，会根据你的电脑显示下载包。点击`Download`" target="_blank" rel="noopener">https://www.mongodb.com/download-center，选择`server`tab选项，会根据你的电脑显示下载包。点击`Download`</a>.</p>
-<h2 id="第二部：安装"><a href="#第二部：安装" class="headerlink" title="第二部：安装"></a>第二部：安装</h2><p>将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键<code>command + shift + G</code>,然后输入<code>/usr/local</code>,点击前往文件夹。把解压下来的mongodb的包拷贝到local目录下</p>
+        <h2 id="第一步：下载"><a href="#第一步：下载" class="headerlink" title="第一步：下载"></a>第一步：下载</h2><p>打开<a href="https://www.mongodb.com/download-center，" target="_blank" rel="noopener">https://www.mongodb.com/download-center，</a> 选择<code>server</code>tab选项，会根据你的电脑显示下载包。点击<code>Download</code>.</p>
+<h2 id="第二部：安装"><a href="#第二部：安装" class="headerlink" title="第二部：安装"></a>第二部：安装</h2><p>将下载下来 的包解压，然后放到/usr/local/目录下（MAC电脑）。不知道如何打开/usr/local，打开Finder, 按快捷键<code>command + shift + G</code>,然后输入<code>/usr/local</code>,点击前往文件夹。把解压下来的mongodb的包拷贝到local目录下,此时的mongoDb的地址应该是<code>/usr/local/mongodb/bin</code>。</p>
+<h2 id="第三部：更换目录"><a href="#第三部：更换目录" class="headerlink" title="第三部：更换目录"></a>第三部：更换目录</h2><p>如果不想用根目录的<code>data/db</code>中存数据库，可以自定义数据库的存储目录。<br>在目录<code>/usr/local/mongodb/bin</code>中执行<code>./mongodb -dbpath &#39;你的目录&#39;</code>。目录一定要加引号，不然不会生效。</p>
+<h2 id="第四部：-启动"><a href="#第四部：-启动" class="headerlink" title="第四部： 启动"></a>第四部： 启动</h2><p>在目录<code>/usr/local/mongodb/bin</code>中 执行<code>./mongod</code>来启动，然后再启动一个终端，在目录<code>/usr/local/mongodb/bin</code>中 执行<code>./mongo</code>来连接。然后在浏览器中输入：<code>http://localhost:27017/</code>,<br> 看到页面中输出 ‘It looks like you are trying to access MongoDB over HTTP on the native driver port.’。就说明启动成功了。</p>
+<h1 id="mongo-命令学习"><a href="#mongo-命令学习" class="headerlink" title="mongo 命令学习"></a>mongo 命令学习</h1><p>首先在终端输入<code>mongo</code>,进行数据库的连接。然后输入<code>show dbs</code>查看当前的数据库， 比如<code>use test</code>,使用一个test 数据库。</p>
+<h2 id="查询命令"><a href="#查询命令" class="headerlink" title="查询命令"></a>查询命令</h2><p><code>db.collections.find()</code> 查询名字为<code>collections</code>的集合 下的所有数据。<br><code>db.collections.find().count()</code> 查询数据量</p>
+<p><code>db.collections.find({name: &#39;zj&#39;})</code> 按条件查询<br><code>db.collections.find().limit(10)</code> 查询前10条数据<br><code>db.collections.find().skip(10).limit(10)</code> 查询第 11条至 第20条数据<br><code>db.collections.find({num: {$gt: 10}})</code> 查询 大于 10的数据<br><code>db.collections.find({num: {$gte: 10}})</code> 查询 大于等于 10 的数据<br><code>db.collections.find({num: {$lt: 10}})</code> 查询 小于 10 的数据<br><code>db.collections.find({num: {$lte: 10}})</code> 查询小于等于 10 的数据</p>
+<p><code>db.collections.find().sort({num: 1})</code> 查询出来的数据按 num 进行升序排列，如果 num: -1 则为降序<br><code>db.collections.find({}, {name: 1})</code> 查询出来的结果只显示姓名，如果不想显示id: 则在后面加上：id: 0</p>
+<h2 id="插入命令"><a href="#插入命令" class="headerlink" title="插入命令"></a>插入命令</h2><p><code>db.collections.insert({name: &#39;zj&#39;})</code> 向集合中插入一个数据</p>
+<h2 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h2><p><code>db.collections.remove({name: &#39;zj&#39;})</code> 删除集合中的某个数据<br><code>db.collections.remove({})</code> 删除集合中的所有数据</p>
+<h2 id="更新命令"><a href="#更新命令" class="headerlink" title="更新命令"></a>更新命令</h2><p><code>db.collections.update({name: &#39;zj&#39;}, {$set: {age: 1}})</code>  更新集合中某条数据，为这条数据增加一个属性<br><code>db.collections.update({name: &#39;zj&#39;}, {$set: {movies: [&#39;hh&#39;, &#39;nn&#39;, &#39;ll&#39;]}})</code> 为这条数据设置一个属性，属性值是一个数组<br><code>db.collections.update({name: &#39;zj&#39;}, {$push: {&#39;movies&#39;: &#39;mm&#39;}})</code> 为这个数据的属性中新增一个值<br><code>db.collections.update({name: &#39;zj&#39;}, {$inc: {&#39;sal&#39;: 100}})</code> 意思是在原有值上增加100， <code>$des</code>在原有值上 减少一百</p>
+<p><code>db.collections.replaceOne({name: &#39;zj&#39;}, {name: &#39;hahahah&#39;})</code> 将名字为’zj’的这条数据替换为 {name: ‘hahahah’}</p>
+<p><code>db.collections.update({name: &#39;zj&#39;}, {$unset: {age: 12}})</code> 把这条数据中的 age 属性删除, age的值可以随意写</p>
 
       
     </div>
@@ -500,6 +511,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/10/Flutter-学习笔记（二）/" rel="prev" title="Flutter 学习笔记（一）">
+                Flutter 学习笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -580,7 +595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -591,7 +606,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -602,7 +617,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -651,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：下载"><span class="nav-number">1.</span> <span class="nav-text">第一步：下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部：安装"><span class="nav-number">2.</span> <span class="nav-text">第二部：安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：下载"><span class="nav-number">1.</span> <span class="nav-text">第一步：下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部：安装"><span class="nav-number">2.</span> <span class="nav-text">第二部：安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三部：更换目录"><span class="nav-number">3.</span> <span class="nav-text">第三部：更换目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部：-启动"><span class="nav-number">4.</span> <span class="nav-text">第四部： 启动</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#mongo-命令学习"><span class="nav-number"></span> <span class="nav-text">mongo 命令学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查询命令"><span class="nav-number">1.</span> <span class="nav-text">查询命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入命令"><span class="nav-number">2.</span> <span class="nav-text">插入命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除命令"><span class="nav-number">3.</span> <span class="nav-text">删除命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新命令"><span class="nav-number">4.</span> <span class="nav-text">更新命令</span></a></li></ol></li></div>
             
 
           </div>
@@ -685,7 +700,7 @@
     
       <span class="post-meta-item-text">博客全站共计字数&#58;</span>
     
-    <span title="博客全站共计字数">2.4k</span>
+    <span title="博客全站共计字数">3.9k</span>
   
 </div>
 
