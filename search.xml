@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Flutter 学习笔记（一）]]></title>
+    <title><![CDATA[Flutter 学习笔记（二）]]></title>
     <url>%2F2019%2F07%2F10%2FFlutter-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Flutter 的安装由于我用的是mac 电脑，于是就按照官网上的mac安装方法一步一步安装。 第一步：下载并解压flutter的安装包网址： https://flutter.dev/docs/get-started/install/macos 第二步： 配置环境变量在根目录下找到.base_profile文件，或者直接打开终端，输入：12345vim ~/.bash_profile``` 然后在打开的文件中（如果没有此文件，则是新建文件），加入以下一行代码：```codeexport PATH='$PATH: Users/XXX/flutter/bin' 提示： 上面的路径要写你第一步中解压后的flutter的路径。这一点很重要哦 然后执行下面的命令，使环境变量生效：1source ~/.bash_profile 然后试试看成功了没：1flutter -h 如果有flutter的相关帮助信息输出，则说明环境变量配置成功至此，环境变量安装完成。 第三步： 安装flutter所需要的开发环境执行以下命令来检查当前开发环境：1flutter doctor 按照上面的提示，一步一步在终端执行]]></content>
   </entry>
