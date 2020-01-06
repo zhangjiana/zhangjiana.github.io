@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[我的面试笔记]]></title>
+    <url>%2F2020%2F01%2F06%2F%E6%88%91%E7%9A%84%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[关于CDN你知道多少？CND为什么要用不同的域名CDN 的概念：通过多个节点服务器，在不同区域分布，便于用户进行数据传递和访问。如果有一个服务器出问题，其他服务器仍然可以完成工作。也可以提高访问效率； CDN的优势： 通过不同的域名来加载文件，使得同时下载文件的并发连接数大大增加。 已经访问过的资源，不必再次从源头获得。比如我之前在一个网站用过jquery, 我再次进第二个网站的时候也用到了jquery, 由于该文件已经缓存了，那我就不用再下载了。 CDN本身具有更好的可用性，更低的网络延迟和丢包率。 因为CDN是就近访问，可以提供本地的数据中心，即便是远离你访问的主网站地址，用户也能就近很快的下载文件。 CDN能够分配负载，节省带宽，提高你网站的性能，降低网站托管的成本。 CDN使用不同域名的优势： 由于浏览器对同一个域名有并发限制， 使用不同域名可以增加并发下载的数量。 国内的话可能有一部分监管的原因，如果有一个子域名下出现不和谐内容可能导致整个挂掉，用不同主域名可以规避这样的问题 跨域不会传递 cookie，高并发时可以有效减少网络流量，提高性能 事件循环js是单线程的语言，每次收到任务后，如果是同步任务，则执行；如果是异步任务，则放到事件队列中，等空闲的时候再来执行。异步任务又分为 宏任务 和 微任务。处理的时候，如果有微任务则执行微任务，然后再执行宏任务。setTimeout, setInterval 为宏任务， async promise 为微任务。]]></content>
+      <tags>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Flutter 学习笔记（二）]]></title>
     <url>%2F2019%2F07%2F10%2FFlutter-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Flutter 的安装由于我用的是mac 电脑，于是就按照官网上的mac安装方法一步一步安装。 第一步：下载并解压flutter的安装包网址： https://flutter.dev/docs/get-started/install/macos 第二步： 配置环境变量在根目录下找到.base_profile文件，或者直接打开终端，输入：12345vim ~/.bash_profile``` 然后在打开的文件中（如果没有此文件，则是新建文件），加入以下一行代码：```codeexport PATH='$PATH: Users/XXX/flutter/bin' 提示： 上面的路径要写你第一步中解压后的flutter的路径。这一点很重要哦 然后执行下面的命令，使环境变量生效：1source ~/.bash_profile 然后试试看成功了没：1flutter -h 如果有flutter的相关帮助信息输出，则说明环境变量配置成功至此，环境变量安装完成。 第三步： 安装flutter所需要的开发环境执行以下命令来检查当前开发环境：1flutter doctor 按照上面的提示，一步一步在终端执行]]></content>
@@ -40,7 +48,7 @@
   <entry>
     <title><![CDATA[hexo 博客网站搭建记录]]></title>
     <url>%2F2019%2F04%2F13%2Fhello%2F</url>
-    <content type="text"><![CDATA[hexo 热更新1$ hexo s -g --debug 支持热更新，修改配置文件后刷新一下可以看到即时效果 但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写） hexo 更改主题 在https://hexo.io/themes/找到喜欢的主题 使用git clone 下喜欢的主题 克隆后，找到_config.yml文件中的theme,将名称改为主题名称即可 hexo 发到github pages 上时遇到的坑（1） 执行hexo deploy后， 总是收到邮件 pages build failed。回到github 上本仓库的setting,可以看到‘ The tag fancybox on line 77 in themes/landscape/’ 报了这个错误。 根本原因是 hexo 的默认主题 landscape 中的readme.md中一些描述不符合github pages 中的一些规定， 把这个readme.md 删掉就可以了。 （2）执行了hexo deploy后，我以为就完事了，打开我的https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。 在网上搜了一下。在_config.yml中最下面的deploy中，加上branch: master。 重新部署就可以了。官网上说的是默认会知道当前的分支，不用指定，可我发现还是指定了才能打开博客页面。 hexo 打开阅读全文Hexo 的 Next 主题默认是首页显示你每篇文章的全文内容，但这会使你的首页篇幅过于冗长。在theme/next目录下的_config.yml中，找到下面代码，改为ture即可。123auto_excerpt: enable: false length: 150 hexo 加入阅读次数 打开leancloud官网 https://leancloud.cn，注册一个账号。然后创建一个class 为 Counter的类，然后在heme/next目录下的_config.yml中，找到leancloud_visitors，把你的appid 和appkey填进去，重新启动就可以了。 最后大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！]]></content>
+    <content type="text"><![CDATA[hexo 写作1$ hexo new [layout] &lt;title&gt; [layout]是指布局，一般用post; hexo 热更新1$ hexo s -g --debug 支持热更新，修改配置文件后刷新一下可以看到即时效果 但如果修改了 post，则需要重新运行一下。（命令中 g 是 generate 的缩写，s 是 sever 的缩写） hexo 更改主题 在https://hexo.io/themes/找到喜欢的主题 使用git clone 下喜欢的主题 克隆后，找到_config.yml文件中的theme,将名称改为主题名称即可 hexo 发到github pages 上时遇到的坑（1） 执行hexo deploy后， 总是收到邮件 pages build failed。回到github 上本仓库的setting,可以看到‘ The tag fancybox on line 77 in themes/landscape/’ 报了这个错误。 根本原因是 hexo 的默认主题 landscape 中的readme.md中一些描述不符合github pages 中的一些规定， 把这个readme.md 删掉就可以了。 （2）执行了hexo deploy后，我以为就完事了，打开我的https://zhangjiana.github.io/myBlob/页面后，发现啥也没有。 在网上搜了一下。在_config.yml中最下面的deploy中，加上branch: master。 重新部署就可以了。官网上说的是默认会知道当前的分支，不用指定，可我发现还是指定了才能打开博客页面。 hexo 打开阅读全文Hexo 的 Next 主题默认是首页显示你每篇文章的全文内容，但这会使你的首页篇幅过于冗长。在theme/next目录下的_config.yml中，找到下面代码，改为ture即可。123auto_excerpt: enable: false length: 150 hexo 加入阅读次数 打开leancloud官网 https://leancloud.cn，注册一个账号。然后创建一个class 为 Counter的类，然后在heme/next目录下的_config.yml中，找到leancloud_visitors，把你的appid 和appkey填进去，重新启动就可以了。 最后 大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！]]></content>
       <categories>
         <category>hexo博客</category>
       </categories>
