@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="有何不可">
 <meta property="og:description" content="关于CDN你知道多少？CND为什么要用不同的域名CDN 的概念：通过多个节点服务器，在不同区域分布，便于用户进行数据传递和访问。如果有一个服务器出问题，其他服务器仍然可以完成工作。也可以提高访问效率； CDN的优势： 通过不同的域名来加载文件，使得同时下载文件的并发连接数大大增加。  已经访问过的资源，不必再次从源头获得。比如我之前在一个网站用过jquery, 我再次进第二个网站的时候也用到了jq">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-06T13:53:43.901Z">
+<meta property="og:updated_time" content="2020-02-20T09:12:09.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的面试笔记">
 <meta name="twitter:description" content="关于CDN你知道多少？CND为什么要用不同的域名CDN 的概念：通过多个节点服务器，在不同区域分布，便于用户进行数据传递和访问。如果有一个服务器出问题，其他服务器仍然可以完成工作。也可以提高访问效率； CDN的优势： 通过不同的域名来加载文件，使得同时下载文件的并发连接数大大增加。  已经访问过的资源，不必再次从源头获得。比如我之前在一个网站用过jquery, 我再次进第二个网站的时候也用到了jq">
@@ -376,7 +376,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  507
+                  1.2k
                 </span>
               
 
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -435,7 +435,14 @@
 </li>
 </ol>
 <h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>js是单线程的语言，每次收到任务后，如果是同步任务，则执行；如果是异步任务，则放到事件队列中，等空闲的时候再来执行。<br>异步任务又分为 宏任务 和 微任务。处理的时候，如果有微任务则执行微任务，然后再执行宏任务。<br><code>setTimeout, setInterval</code> 为宏任务， <code>async promise</code> 为微任务。</p>
-<!-- flag of hidden posts -->
+<h2 id="http头部的报文有哪些"><a href="#http头部的报文有哪些" class="headerlink" title="http头部的报文有哪些"></a>http头部的报文有哪些</h2><p>http 一般包括: 通用头部， 请求/响应头部， 请求/响应体</p>
+<p>通用头部:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Request Url： 请求的web 服务器地址</span><br><span class="line">Request Method： 请求的方法</span><br><span class="line">Status Code： 请求的返回状态码</span><br><span class="line">Remote Address： 请求的远程服务器地址（IP）形式</span><br></pre></td></tr></table></figure>
+<p>请求头部:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Accept： 接收类型，表示浏览器支持的MIME类型, 对标服务端的Content-type, 常见的有 application/json, text/plain</span><br><span class="line">Accept-Encoding： 浏览器支持的压缩类型,如gzip等,超出类型不能接收</span><br><span class="line">Accept-Language： 浏览器支持的语音</span><br><span class="line">Cache-Control： 请求和响应遵循的缓存机制， 如果是no-cache，则表示告诉服务器我这里不想缓存</span><br><span class="line">If-Modified-Since： http1<span class="number">.0</span>的, 对应服务端的Last-Modified，用来匹配文件是否改动，精确到秒级别</span><br><span class="line">Expires： 缓存机制，表示多少时间里不再向服务端请求， 使用缓存。 http1<span class="number">.0</span>的</span><br><span class="line">Max-age： 表示资源在本地缓存多少秒， 不超过这个时间，就用缓存，不向服务端请求。 http1<span class="number">.1</span>的</span><br><span class="line">If-None-Match：对应服务端的ETag，用来匹配文件内容是否改变（非常精确），http1<span class="number">.1</span>中</span><br><span class="line">Cookie： 有cookie 并且同域的时候会带上。</span><br><span class="line">Connection： 这个表示当客户端与服务器有长连接的时候如何处理， 一般是keep-alive;</span><br><span class="line">HOST： 请求的主机Url</span><br><span class="line">Origin： 请求从何处发出</span><br><span class="line">Referer： 页面来源</span><br><span class="line">User-Agent：用户客户端的一些必要信息，如UA头部等</span><br></pre></td></tr></table></figure>
+<p>响应头部:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Headers： 服务端允许的请求Headers</span><br><span class="line">Access-Control-Allow-Methods： 服务端允许的请求方法</span><br><span class="line">Access-Control-Allow-Origin： 服务端允许的请求来源，常常用来设置一个域名，解决跨域问题</span><br><span class="line">Content-Type：服务端返回的实体内容的类型,</span><br><span class="line"><span class="built_in">Date</span>：数据从服务器发送的时间，</span><br><span class="line">Cache-Control：告诉浏览器采用什么样的缓存， 如果是no-cache，那么浏览器下次的时候会再次请求服务端，如果是max-age=<span class="number">20000</span>。 那就是告诉浏览器，<span class="number">20000</span>秒内不要来请求，用缓存。</span><br><span class="line">Last-Modified：请求资源的最后修改时间</span><br><span class="line">Expires：应该在什么时候认为文档已经过期,从而不再缓存它</span><br><span class="line">Max-age：客户端的本地资源应该缓存多少秒，开启了Cache-Control后有效</span><br><span class="line">ETag：请求变量的实体标签的当前值</span><br><span class="line"><span class="built_in">Set</span>-Cookie：设置和页面关联的cookie，服务器通过这个头部把cookie传给客户端</span><br><span class="line">Keep-Alive：如果客户端有keep-alive，服务端也会有响应（如timeout=<span class="number">38</span>）</span><br></pre></td></tr></table></figure>
+<h2 id="为什么请求中有OPTIONS"><a href="#为什么请求中有OPTIONS" class="headerlink" title="为什么请求中有OPTIONS"></a>为什么请求中有OPTIONS</h2><!-- flag of hidden posts -->
       
     </div>
     
@@ -584,7 +591,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -606,7 +613,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -655,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于CDN你知道多少？CND为什么要用不同的域名"><span class="nav-number">1.</span> <span class="nav-text">关于CDN你知道多少？CND为什么要用不同的域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN-的概念："><span class="nav-number">1.1.</span> <span class="nav-text">CDN 的概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN的优势："><span class="nav-number">1.2.</span> <span class="nav-text">CDN的优势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN使用不同域名的优势："><span class="nav-number">1.3.</span> <span class="nav-text">CDN使用不同域名的优势：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件循环"><span class="nav-number">2.</span> <span class="nav-text">事件循环</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于CDN你知道多少？CND为什么要用不同的域名"><span class="nav-number">1.</span> <span class="nav-text">关于CDN你知道多少？CND为什么要用不同的域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN-的概念："><span class="nav-number">1.1.</span> <span class="nav-text">CDN 的概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN的优势："><span class="nav-number">1.2.</span> <span class="nav-text">CDN的优势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN使用不同域名的优势："><span class="nav-number">1.3.</span> <span class="nav-text">CDN使用不同域名的优势：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件循环"><span class="nav-number">2.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http头部的报文有哪些"><span class="nav-number">3.</span> <span class="nav-text">http头部的报文有哪些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么请求中有OPTIONS"><span class="nav-number">4.</span> <span class="nav-text">为什么请求中有OPTIONS</span></a></li></ol></div>
             
 
           </div>
@@ -689,7 +696,7 @@
     
       <span class="post-meta-item-text">博客全站共计字数&#58;</span>
     
-    <span title="博客全站共计字数">4.3k</span>
+    <span title="博客全站共计字数">4.9k</span>
   
 </div>
 
