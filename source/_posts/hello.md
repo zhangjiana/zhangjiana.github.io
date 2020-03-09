@@ -3,6 +3,13 @@ date: 2019-04-13 17:04:19
 tags:
 categories: [hexo博客]
 ---
+
+## hexo 写作
+```shell
+$ hexo new [layout] <title>
+```
+`[layout]`是指布局，一般用`post`;
+
 ## hexo 热更新
 
 ```shell
@@ -34,6 +41,7 @@ auto_excerpt:
 ```
 ## hexo  加入阅读次数
 1. 打开leancloud官网 https://leancloud.cn，注册一个账号。然后创建一个class 为 Counter的类，然后在heme/next目录下的_config.yml中，找到`leancloud_visitors`，把你的appid 和appkey填进去，重新启动就可以了。
+
 
  ## 最后
  大功告成，一直都想拥有一个自己的博客网站。到今天才算是正式有了一个博客，莫名的开心。以后我会好好记录工作中遇到的技术难题，分享我的踩坑日常。敬请期待！
