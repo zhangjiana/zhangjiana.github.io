@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2020年中总结]]></title>
+    <url>%2F2020%2F09%2F17%2F2020%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[这周在上海参加工业博览会，确实收获颇丰。当你站到不同的位置，就有不一样的感受]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[来讲讲订阅发布与观察者模式]]></title>
     <url>%2F2020%2F03%2F15%2F%E6%9D%A5%E8%AE%B2%E8%AE%B2%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83%E4%B8%8E%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[这两天常被人问到你知道什么是观察者模式吗？ 什么是订阅发布模式？ 两者又有什么区别？我细细一想，还真是被问到了，脑子里开始绕了起来。 借着这个疑问，就又复习了一下。 订阅发布模式 个人理解， 订阅发布模式其实就是像我们去报亭里订阅一份报纸，或者是在微信上订阅公众号，就是我通过报亭订阅了这个事件，然后一旦有这个事件的时 候，报亭呢，就会发布，我就会收到这个事件了。报亭—就是订阅发布的中间人。这个是和观察者模式最大的区别。多说无益，代码来展示一下。 123456789101112131415161718192021222324252627282930 var pubsub = (() =&gt; &#123; var events = &#123;&#125;; function subscripe(eventName, fn) &#123; if (!events[eventName]) &#123; events[eventName] = [] &#125; events[eventName] = fn; &#125; function publish(eventName, ...args) &#123; if (!events[eventName]) &#123; // 说明没有订阅这个事件 return; &#125; for (let fn of events[eventName]) &#123; fn(...args); &#125; &#125; return &#123; subscripe, publish &#125; &#125;)()// 使用pubsub.subscribe('aa', (name, age) =&gt; &#123; console.log(`I am $&#123;name&#125;, my age is $&#123;age&#125;`)&#125;)pubsub.publish('aa', 'zj', 20)// =&gt; I am zj, my age is 20;// 因为事件一发布，订阅事件就收到了，然后执行了打印方法。 观察者模式比如我家里有一个摄像头，然后家人都有权限查看。 那么家人就是观察者， 家里的情况是被观察者。 这个就是一个直接的一对多关系。 直接进行观察的。 就好比是拍卖一个东西， 好多人都在看着，那么这个东西是被观察者， 在座的参加拍卖的都是观察者。 再举个例子，比如直播间。 主播是被观察者， 观众是观察者。 那么主播说了什么的时候， 观察者一直在观察者， 主播提到谁的名字，所有观察者都可以看到。 12345678910111213141516171819202122232425262728293031323334353637// 举个例子，subject 比如是主播class Subject &#123; constructor() &#123; this.name = ''; this.people = []; &#125; attatch(person) &#123; this.people.push(person); &#125; getName() &#123; return this.name; &#125; setName(name) &#123; this.name = name; this.notifyAll(); &#125; notifyAll() &#123; this.people.forEach((person) =&gt; &#123; person.update(); &#125;) &#125;&#125;class Observer &#123; constructor(name, subject) &#123; this.name = name; this.subject = subject; this.subject.attatch(this); &#125; update() &#123; console.log(`$&#123;this.name&#125; heard $&#123;this.subject.getName()&#125;`) &#125;&#125;var s = new Subject()var a1 = new Observer('a1', s)var a2 = new Observer('a2', s)s.setName('zj') 二者区别 订阅发布可以通过一个中间人来完成， 观察者模式时观察者和被观察者直接沟通来完成。 订阅发布是通过中间人来订阅一个事件，如果有这个事件的话，则发布后，订阅人就会执行。 而观察者模式不同，只要是观察者，那么被观察者一有 动静，所有的观察者都会得到更新。]]></content>
@@ -25,14 +30,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Flutter 学习笔记（二）]]></title>
-    <url>%2F2019%2F07%2F10%2FFlutter-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Flutter 的安装由于我用的是mac 电脑，于是就按照官网上的mac安装方法一步一步安装。 第一步：下载并解压flutter的安装包网址： https://flutter.dev/docs/get-started/install/macos 第二步： 配置环境变量在根目录下找到.base_profile文件，或者直接打开终端，输入：12345vim ~/.bash_profile``` 然后在打开的文件中（如果没有此文件，则是新建文件），加入以下一行代码：```codeexport PATH='$PATH: Users/XXX/flutter/bin' 提示： 上面的路径要写你第一步中解压后的flutter的路径。这一点很重要哦 然后执行下面的命令，使环境变量生效：1source ~/.bash_profile 然后试试看成功了没：1flutter -h 如果有flutter的相关帮助信息输出，则说明环境变量配置成功至此，环境变量安装完成。 第三步： 安装flutter所需要的开发环境执行以下命令来检查当前开发环境：1flutter doctor 按照上面的提示，一步一步在终端执行]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[Flutter 学习笔记（一）]]></title>
     <url>%2F2019%2F07%2F10%2FFlutter-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Flutter 的两个抽象类 Flutter 分为 StatelessWidget 和 StatefulWidget 两个抽象类，为我们提供自定义组件.StatelessWidget 是无状态控件， 即不可变状态的控件,通过构建其他控件来描述用户界面的一部分。StatefulWidget 是有状态控件，可以定义一个具有可变状态的控件。实现一个 stateful widget 至少需要两个类：（1）一个 StatefulWidget 类；（2）一个 State 类，StatefulWidget 类本身是不变的，但是 State 类在 widget 生命周期中始终存在。 举例说明：官网的例子实现一个随机变化的英文字符串 先创建一个最简单的 state 类,然后重写build 方法，返回随机字符串 1234567class RandomWordsState extends State&lt;RandomWords&gt; &#123; @override Widget build(BuildContext context) &#123; final wordPair = WordPair.random(); return Text(wordPair.asPascalCase); &#125;&#125; 添加有状态的RandomWords widget 1234class RandomWords extends StatefulWidget &#123; @override RandomWordsState createState() =&gt; RandomWordsState();&#125; 在 StatelessWidget 中写界面显示 1234567891011121314class MyApp extends StatelessWidget &#123; @override Widget build(BuildContext context) &#123; return MaterialApp( title: &apos;Welcome to Flutter&apos;, home: Scaffold( title: Text(&apos;Welcome to Flutter&apos;), body: Center( child: RandomWords() ) ) ) &#125;&#125; 重启应用。应用应该像之前一样运行，每次热重载或保存应用程序时都会显示一个单词对 Flutter 使用外部package举例说明： 添加english_words软件包 在pubspec.yaml 中，将 english_words（3.1.0或更高版本）添加到依赖项列表 12345 dependencies: flutter: sdk: flutter cupertino_icons: ^0.1.2 + english_words: ^3.1.0 在 Android Studio 的编辑器视图中查看 pubspec 时，单击右上角的 Packages get，这会将依赖包安装到你的项目。或者在终端输入 1flutter pub get 在lib/main.dart中引入, 1import &apos;package:english_words/english_words.dart&apos; 总结pubspec.yaml 管理Flutter 应用程序的assets(资源，如图片、package等), 个人暂且理解为package.json, 如果不对欢迎指正。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Flutter 学习笔记（二）]]></title>
+    <url>%2F2019%2F07%2F10%2FFlutter-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Flutter 的安装由于我用的是mac 电脑，于是就按照官网上的mac安装方法一步一步安装。 第一步：下载并解压flutter的安装包网址： https://flutter.dev/docs/get-started/install/macos 第二步： 配置环境变量在根目录下找到.base_profile文件，或者直接打开终端，输入：12345vim ~/.bash_profile``` 然后在打开的文件中（如果没有此文件，则是新建文件），加入以下一行代码：```codeexport PATH='$PATH: Users/XXX/flutter/bin' 提示： 上面的路径要写你第一步中解压后的flutter的路径。这一点很重要哦 然后执行下面的命令，使环境变量生效：1source ~/.bash_profile 然后试试看成功了没：1flutter -h 如果有flutter的相关帮助信息输出，则说明环境变量配置成功至此，环境变量安装完成。 第三步： 安装flutter所需要的开发环境执行以下命令来检查当前开发环境：1flutter doctor 按照上面的提示，一步一步在终端执行]]></content>
   </entry>
   <entry>
     <title><![CDATA[mongoDB的安装]]></title>
