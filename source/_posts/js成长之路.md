@@ -10,6 +10,11 @@ typeof: 只能判断基础的数据类型，特别注意，typeof null === 'obje
 instanceOf: instanceof 可以准确地判断复杂引用数据类型，但是不能正确判断基础数据类型；
 Object.prototype.toString.call()
 
+
+基本类型存在于栈中，
+引用类型的值存在堆中，它的指针存在于栈中
+
+
 1. 实现instanceOf
 
 ```javascript
@@ -89,7 +94,7 @@ function clone(target) {
     不能满足：
     1. 拷贝后Date, 和 RegExp 变为空对象
     2. 无法拷贝对象的循环应用，即对象成环 (obj[key] = obj)。
-    3. 不能复制不可枚举的属性以及 Symbol 类型
+    3. 不能复制不可枚举的属性
 ----------------
     （3）最终版
 ``` javascript
@@ -116,7 +121,168 @@ function deepCopy (target, wm = new WeakMap()) {
     }
     return cloneObj
 }
-```  
-
+```
 解释：   1. `Reflect.ownKeys` 返回一个有由自身属性键组成的数组
         2. `Object.getOwnPropertyDescriptors()` 方法用来获取一个对象的所有自身属性的描述符。
+        3. `weakmap` 防止内存泄漏，循环引用复制起来会比较吃内存如果不用weakmap会有问题
+
+内存泄露： 不再用到的内存，没有及时释放，就叫内存泄漏
+
+```javascript
+// 验证代码
+let obj = {
+  num: 0,
+  str: '',
+  boolean: true,
+  unf: undefined,
+  nul: null,
+  obj: { name: '我是一个对象', id: 1 },
+  arr: [0, 1, 2],
+  func: function () { console.log('我是一个函数') },
+  date: new Date(0),
+  reg: new RegExp('/我是一个正则/ig'),
+  [Symbol('1')]: 1,
+};
+Object.defineProperty(obj, 'innumerable', {
+  enumerable: false, value: '不可枚举属性' }
+);
+obj = Object.create(obj, Object.getOwnPropertyDescriptors(obj))
+obj.loop = obj    // 设置loop成循环引用的属性
+let cloneObj = deepClone(obj)
+cloneObj.arr.push(4)
+console.log('obj', obj)
+console.log('cloneObj', cloneObj)
+```
+
+5. 继承
+
+1). 原型链继承
+
+```javascript
+function Parent() {
+    this.name = 'parent'
+    this.friend = [1,2,3]
+}
+Parent.prototype.sayName = function () {
+    console.log(this.name)
+}
+function Child() {
+    this.type = 'childType'
+}
+Child.prototype = new Parent()
+var c1 = new Child()
+var c2 = new Child()
+console.log(c1.friend) // 123
+c2.friend.push(4)
+console.log(c1.friend) // 1234
+console.log(c2.friend) // 1234
+```
+
+2) 构造函数继承
+```javascript
+function Parent() {
+    this.name = 'parent'
+    this.friend = [1,2,3]
+}
+Parent.prototype.sayName = function () {
+    console.log(this.name)
+}
+function Child () {
+    Parent.call(this)
+    this.type = 'childType'
+}
+var c1 = new Child()
+var c2 = new Child()
+console.log(c1.friend) // 123
+c2.friend.push(4)
+console.log(c2.friend) // 1234
+```
+
+3)组合式继承
+```javascript
+function Parent() {
+    this.name = 'parent'
+    this.friend = [1,2,3]
+}
+Parent.prototype.sayName = function () {
+    console.log(this.name)
+}
+function Child () {
+    Parent.call(this)
+    this.type = 'childType'
+}
+Child.prototype = new Parent()
+// 手动挂上构造器，指向自己的构造函数
+Child.prototype.constructor = Child;
+
+var c1 = new Child()
+var c2 = new Child()
+```
+4)原型式继承
+（使用对象字面量的方式）
+
+```javascript
+var parent = {
+    name: 'parent',
+    friend: [1,2,3],
+    sayName: () => {
+        console.log(this.name)
+    }
+}
+var child = Object.create(parent)
+var child2 = Object.create(parent)
+console.log(child.friend) // 1,2,3
+child2.friend.push(222)
+console.log(child.friend) // 1,2,3,222
+console.log(child2.friend) // 1,2,3,222
+```
+
+5) 寄生式继承
+
+```javascript
+var parent = {
+    name: 'parent',
+    friend: [1,2,3],
+    sayName: () => {
+        console.log(this.name)
+    }
+}
+
+function clone(original) {
+    let clone = Object.create(original)
+    clone.getFriends = function () {
+        console.log(this.friend)
+    }
+    return clone
+}
+var child3 = clone(parent)
+
+```
+
+6)寄生组合式继承
+
+```javascript
+
+function Parent() {
+    this.name = 'parent'
+    this.friend = [1,2,3]
+}
+Parent.prototype.sayName = function () {
+    console.log(this.name)
+}
+function clone (parent, child) {
+    // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+    child.prototype = Object.create(parent.prototype);
+    child.prototype.constructor = child;
+}
+function Child () {
+    Parent.call(this)
+    this.type = 'childType'
+}
+clone(Parent, Child)
+
+Child.prototype.getFriends = function () {
+    return this.friend;
+}
+
+```
