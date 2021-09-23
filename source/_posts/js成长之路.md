@@ -116,13 +116,15 @@ function deepCopy (target, wm = new WeakMap()) {
     let cloneObj = Object.create(Object.getPrototypeOf(target), allDesc)
     // 把对象里面所有属性缓存起来
     wm.set(target, cloneObj)
+    // 这里解释一些为什么不用for (let key in target).
+    // 因为不能把不可枚举属性带出来。 使用Reflect.ownKeys(target)可以把不可枚举属性也列出来
     for (let key of Reflect.ownKeys(target)) {
         cloneObj[key] = (isComplexDataType(target[key]) && typeof target[key] !== 'function') ? deepClone(target[key], wm) : target[key]
     }
     return cloneObj
 }
 ```
-解释：   1. `Reflect.ownKeys` 返回一个有由自身属性键组成的数组
+解释：   1. `Reflect.ownKeys` 返回一个由自身属性键组成的数组，包括对象里面的不可枚举属性。
         2. `Object.getOwnPropertyDescriptors()` 方法用来获取一个对象的所有自身属性的描述符。
         3. `weakmap` 防止内存泄漏，循环引用复制起来会比较吃内存如果不用weakmap会有问题
 
@@ -286,3 +288,213 @@ Child.prototype.getFriends = function () {
 }
 
 ```
+
+7) ES6 的 extends 继承
+```javascript
+Class Parent {
+    constructor() {
+        this.name = 'parent'
+    }
+    sayName() {
+        console.log(this.name)
+    }
+}
+
+Class Child extends Parent {
+    constructor() {
+        super()
+        this.type = 'child'
+    }
+    getFriend () {
+        console.log(this.friends)
+    }
+}
+```
+
+
+6. call, apply, bind 三个的区别
+```javascript
+let a = {
+
+  name: 'jack',
+
+  getName: function(msg) {
+
+    return msg + this.name;
+
+  } 
+
+}
+
+let b = {
+
+  name: 'lily'
+
+}
+
+console.log(a.getName('hello~'));  // hello~jack
+
+console.log(a.getName.call(b, 'hi~'));  // hi~lily
+
+console.log(a.getName.apply(b, ['hi~']))  // hi~lily
+
+let name = a.getName.bind(b, 'hello~');
+
+console.log(name());  // hello~lily
+
+```
+7. 实现new
+思考： new 的时候，我们都做了什么？
+    1. 新建一个对象
+    2. 把构造函数中的作用域赋值给这个对象
+    3. 把构造函数中的方法和属性给新对象
+    4. 返回这个对象
+
+```javascript
+    function _new (parent, ...args) {
+        if(typeof parent !== 'function') {
+            throw 'first param must be a function';
+        }
+        // 新建一个对象
+        var tempObj = new Object()
+        // 把构造器的prototype赋值给新对象
+        tempObj = Object.create(parent.prototype)
+        // 将this和调用参数传给构造器执行
+        let res = parent.apply(tempObj, [...args])
+        let isObject = typeof parent === 'object' && parent !== null
+        let isFunction = typeof parent === 'fuction'  
+        // 返回这个对象  
+        return isObject || isFunction ? res : tempObj
+    }
+```
+8. 实现 call 和 apply
+
+```javascript
+// call 方法接收两个参数， 1. 需要借用的对象，2. 传入的参数（arg1, arg2, ...）
+function _call (lendObj, ...args) {
+    let context = Object(lendObj) || window
+    context.fn = this
+    let result = eval('context.fn(...args)')
+    delete context.fn
+    return result
+}
+// apply 方法接收参数和call 有所不同， 第二个参数是数组
+function _apply (lentObj, args) {
+    var context = Object(lendObj) || window
+    context.fn = this
+    let result = eval('context.fn(...args)');
+    delete context.fn
+    return result;
+}
+
+```
+9. 实现bind方法
+ bind方法也是实现更改this 指向的功能，但是和call，apply 不同的是，bind方法实现后，需要调用才会返回结果
+ ```javascript
+ function _bind (context, ...args) {
+     if (typeof this !== 'function') {
+         throw Error('this must be a function')
+     }
+     var self = this 
+     var fBound = function () {
+        self.apply(this instanceof self ? this : context, args.concat(Array.prototype.splice.call(arguments)))
+     }
+     if (this.prototype) {
+         fBound.prototype = Object.create(this.prototype)
+     }
+     return fBound
+ }
+ ```
+
+
+ 数组抹平的六种方法：
+ 1. 循环遍历法
+ ```javascript
+    function flatten (arr) {
+        let result = []
+        for(let i = 0; i < arr.length; i++) {
+            if (Array.isArray(arr[i])) {
+                result = result.concat(flatten(arr[i]))
+            } else {
+                result.push(arr[i])
+            }
+        }
+        return result
+    }
+ ```
+ 2. 使用`reduce`
+ ```javascript
+    function flatten (arr) {
+        return arr.reduce((prev, next) => {
+            return prev.concat(Array.isArray(next) ? flatten(next) : next)
+        }, [])
+    }
+ ```
+ 3. 使用es6的 扩展运算符和 some 的方法
+ ```javascript
+    function flatten (arr) {
+        while(arr.some(item => Array.isArray(item))) {
+            arr = [].concat(...arr)
+        }
+        return arr
+    }
+ ```
+ 4. 使用 `toString` 和 `split` 方法
+ ```javascript
+    function flatten (arr) {
+        return arr.toString().split(',')
+    }
+ ```
+ 5. 使用es6的flat 方法
+ ```javascript
+    function flatten (arr) {
+        return arr.flat(Infinity)
+    }
+ ```
+ 6. 使用JSON.stringify 和 JSON.parse 和 正则 
+ ```javascript
+    function flatten (arr) {
+        let str = JSON.stringify(arr)
+        str.replace(/(\[|\])/g, '')
+        str = '[' + str + ']'
+        return JSON.parse(str)
+    }
+ ```
+
+ 排序
+
+ 1. 冒泡排序
+ ```javascript
+    function bubbleSort (arr) {
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr [j + 1]) {
+                    let temp
+                    temp = arr[j]
+                    arr[j] = arr[j + 1]
+                    arr[j + 1] = temp
+                }
+            }
+        }
+        return arr
+    }
+ ```
+ 2. 快速排序
+ ```javascript
+    function quickSort (arr) {
+        if (arr.length <= 1) return arr
+        let index
+        let left = []
+        let right = []
+        index = Math.floor(arr.length / 2)
+        let mid = arr.splice(index, 1)
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] < mid[0]) {
+                left.push(arr[i])
+            } else {
+                right.push(arr[i])
+            }
+        }
+        return quickSort(left).concat(mid, quickSort(right))
+    }
+ ```
