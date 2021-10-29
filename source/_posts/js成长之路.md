@@ -498,3 +498,147 @@ function _apply (lentObj, args) {
         return quickSort(left).concat(mid, quickSort(right))
     }
  ```
+ 3. 插入排序
+思路：
+    1). 从第一个元素开始，默认该元素已经被排序
+    2). 取下一个元素和第一个元素比较，在已经排序的元素序列中从后向前扫描；
+    3). 如果该元素（已排序）大于新元素，将该元素移到下一位置；
+    3). 重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；
+    4). 将新元素插入到该位置后；
+    5). 重复步骤2~5
+ ```javascript
+    function insertSort (arr) {
+        let current
+        for (let i = 1; i < arr.length; i++) {
+            let prev = i - 1
+            current = arr[i]
+            while(prev >=0 && current < arr[prev]) {
+                arr[prev + 1] = arr[prev]
+                prev--
+            }
+            arr[prev + 1] = current
+        }
+        return arr
+    }
+ ```
+
+
+ 4. 手动实现一个 `EventEmitter`， 订阅发布模式
+
+Node 的 `EventEmitter` 示例：
+ ```javascript
+    var events = require('events')
+    var emitter = new events.EventEmitter()
+    var hello1 = function (name) {
+        console.log('111 hello ' + name)
+    }
+    var hello2 = function (name) {
+        console.log('222 hello ' + name)
+    }
+
+    var hello3 = function (name) {
+        console.log('333 hello ' + name)
+    }
+    emitter.on('say', hello1)
+    emitter.on('say', hello2)
+
+    emitter.emit('say', 'John')
+    // 111 hello John
+    // 222 hello John
+
+    emitter.off('say', hello1)
+
+    emitter.emit('say', 'Tom')
+    // 222 hello John
+
+    emitter.once('sing', hello2)
+    emitter.once('sing', hello3)
+    emitter.emit('sing', 'Jane')
+    // 222 hello Jane
+    // 333 hello Jane
+
+    emitter.emit('sing', 'Kang')
+    // 不会触发，因为once 只执行一次
+ ```
+
+ 实现
+
+ ```javascript
+    function EventEmiter () {
+    // 自定义事件对象，结构示例： 
+    /**
+    * this._event = {
+        'say': [
+            {
+                listener: hello1,
+                once: false
+            },
+            {
+                listener: hello2,
+                once: false
+            },
+        ]
+    }
+    */ 
+        this._event = {}
+    }
+    EventEmiter.prototype.on = function (eventName, listener, once = false) {
+        if(!eventName) {
+            throw new Error('This methods must have a eventName')
+            return
+        }
+        if (typeof listener !== 'function') {
+            throw new Error('listener must be a function!')
+            return
+        }
+        var events = this._event[eventName] || []
+        var listeners = events
+        let item = listeners.find((item) => { return item.listener === listener })
+        // 不重复添加自定义事件
+        if (!item) {
+            listeners.push({
+                listener: listener,
+                once: once
+            })
+        }
+        this._event[eventName] = listeners
+        return this;
+    }
+    EventEmiter.prototype.once = function (eventName, listener) {
+        this.on(eventName, listener, true)
+    }
+    EventEmiter.prototype.off = function (eventName, listener) {
+        if (!eventName) {
+            return
+        }
+        var listeners = this._event[eventName] || []
+        if (!listeners.length) {
+            throw new Error('there is no listener for the' + eventName)
+            return
+        }
+        let index;
+        for (let i = 0; i < listeners.length; i++) {
+            if (listeners[i].listener === listener) {
+                index = i; break;
+            }
+        }
+        listeners.splice(index, 1)
+        return this;
+    }
+    EventEmiter.prototype.emit = function (eventName) {
+        if (!eventName) {
+            return
+        }
+        var args = Array.prototype.slice.call(arguments)
+        args.shift();
+        var listeners = this._event[eventName] || []
+        if (!listeners.length) return
+        listeners.forEach((item) => {
+            item.listener && item.listener.apply(this, args || [])
+            if (item.once) {
+                this.off(eventName, item.listener)
+            }
+        })
+        return this;
+    }
+ ```
