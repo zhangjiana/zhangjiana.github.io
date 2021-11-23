@@ -642,3 +642,47 @@ Node 的 `EventEmitter` 示例：
         return this;
     }
  ```
+
+5. 手动实现 `Promise`
+
+```javascript
+    function MyPromise(executor) {
+        this.status = 'pending';
+        this.data = undefined;
+        this.reslove = (v) => {
+            if (this.status === 'pending') {
+                this.status = 'fulfilled';
+                this.data = v;
+            }
+        }
+        this.rejected = (r) => {
+            if (this.status === 'pending') {
+                this.status = 'rejected';
+                this.data = r;
+            }
+        }
+        try {
+            executor(reslove, rejected);
+        } catch (e) {
+            this.rejected(e);
+        }
+    }
+    MyPromise.prototype.then = function(onFulfilled, onRejected) {
+        if (this.status === 'fulfilled') {
+            onFulfilled(this.data)
+        }
+        if (this.status === 'rejected') {
+            onRejected(this.data)
+        }
+    }
+
+    var p1 = new Promise((resolve, reject) => {
+        // resolve('success')
+        // reject('fail')
+    })
+    p1.then((res) => {
+        console.log('s ' + res)
+    }, (err) => {
+        console.log('f ' + err)
+    })
+```
