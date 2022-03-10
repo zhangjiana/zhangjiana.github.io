@@ -371,7 +371,7 @@ console.log(name());  // hello~lily
 
 ```javascript
 // call 方法接收两个参数， 1. 需要借用的对象，2. 传入的参数（arg1, arg2, ...）
-function _call (lendObj, ...args) {
+Function.prototype._call (lendObj, ...args) {
     let context = Object(lendObj) || window
     context.fn = this
     let result = eval('context.fn(...args)')
@@ -379,7 +379,7 @@ function _call (lendObj, ...args) {
     return result
 }
 // apply 方法接收参数和call 有所不同， 第二个参数是数组
-function _apply (lentObj, args) {
+Function.prototype._apply (lentObj, args) {
     var context = Object(lendObj) || window
     context.fn = this
     let result = eval('context.fn(...args)');
@@ -391,7 +391,7 @@ function _apply (lentObj, args) {
 9. 实现bind方法
  bind方法也是实现更改this 指向的功能，但是和call，apply 不同的是，bind方法实现后，需要调用才会返回结果
  ```javascript
- function _bind (context, ...args) {
+ Function.prototype._bind (context, ...args) {
      if (typeof this !== 'function') {
          throw Error('this must be a function')
      }
