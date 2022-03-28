@@ -112,3 +112,4 @@ function setTimeoutByRequest(fn, interval) {
     timer = window.requestAnimationFrame(loop)
     return timer
 }
+

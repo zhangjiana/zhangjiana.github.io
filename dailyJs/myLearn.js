@@ -1,8 +1,10 @@
 // 实现Promise.all 和 Promise.any
 
+// 判断是不是promise的依据，是then 是否是一个函数
 const isPromise = value => typeof value.then === 'function'
+
 Promise.allSelf = function (promises, maxNum) {
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
         let arr = []
         let idx = 0
         let len = promises.length
@@ -52,13 +54,13 @@ const pErr = new Promise((resolve, reject) => {
     reject("总是失败");
   });
   
-  const pSlow = new Promise((resolve, reject) => {
+const pSlow = new Promise((resolve, reject) => {
     setTimeout(resolve, 500, "最终完成");
-  });
+});
   
-  const pFast = new Promise((resolve, reject) => {
+const pFast = new Promise((resolve, reject) => {
     setTimeout(resolve, 100, "很快完成");
-  });
+});
 
 // 测试Promise.allDiy
 //   Promise.allDiy([pSlow, pFast]).then((res) => {
@@ -91,24 +93,11 @@ Promise.anyDiy = function(promises) {
         }
     })
 }
-Promise.anyDiy([pErr, pSlow, pFast]).then((res) => {
+Promise.race([pErr, pSlow, pFast]).then((res) => {
     console.log(res)
     // 期望输出--> 很快完成
 }, (err) => {
     console.log(err)
 })
 
-var module = {
-    x: 1,
-    getX: function(arg) {
-        console.log('---')
-        console.log(this.x)
-        console.log(arg)
-    }
-}
-var b = module.getX;
-var a = {
-    x: 22
-}
-b.bind(a, 789)()
 
