@@ -3,6 +3,7 @@ title: resume
 copyright: true
 date: 2023-02-09 15:08:05
 tags:
+hidden: true
 ---
 
 # 个人信息
